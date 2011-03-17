@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Demo_marquee_url</title>
+</head>
+<body>
+    <script type="text/javascript" charset="utf-8">
+if (!window.history || !window.history.replaceState) {
+    alert("Oops, your browsr doesn't support HTML5 history api");
+}
+
+function startMarquee(text) {
+    var i = 0,
+        text = text.replace(/ /g, '-');
+        len = text.length;
+    setInterval(function() {
+        var scrollingText = text.substring(i) + text.substring(0, i);
+        window.history.replaceState(null, 'scroll demo', '/' + scrollingText);
+        ++i;
+        i %= len;
+    }, 200);
+}
+
+startMarquee('Hello world! this is a demo of URL marquee with the help of HTML5. Hope it can run smoothly in your browser:) ');
+
+    </script>
+</body>
+</html> 
