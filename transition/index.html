@@ -96,7 +96,7 @@
                     <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
                     <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
                     <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
-                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
                 </ul>
             </nav>
 
@@ -108,7 +108,7 @@
                     <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
                     <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
                     <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
-                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
                 </ul>
             </nav>
 
@@ -120,7 +120,7 @@
                     <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
                     <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
                     <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
-                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
                 </ul>
             </nav>
 
@@ -132,7 +132,7 @@
                     <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
                     <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
                     <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
-                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
                 </ul>
             </nav>
 
@@ -156,7 +156,38 @@ YUI().use('node', 'transition', function(Y) {
         setTimeout(function() {
             window.scrollTo(0, 1);
         }, 100);
-    }
+    };
+
+    pageTrans.starWar = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+            //transform: 'matrix3d(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 2)'
+            transform: 'matrix3d(0.806406, -0.121748, 0, -0.001493, -0.047822, 0.371861, 0, -0.00037, 0, 0, 0.4, 0, -163, -264, 230, 1)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-out',
+            duration: 0.75,
+            //transform: 'matrix(1, 0, 0, 1, 0, 0)'
+            transform: 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
+        }, function() {
+            currPage.hide();
+            currPage = node;
+        });
+    };
 
     pageTrans.fadeIn = function (node) {
         if (node == currPage) return;
@@ -177,7 +208,7 @@ YUI().use('node', 'transition', function(Y) {
         })
         .show()
         .transition({
-            easing: 'ease-out',
+            easing: 'ease-in-out',
             duration: 0.75,
             opacity: '1'
         }, function() {
@@ -201,7 +232,8 @@ YUI().use('node', 'transition', function(Y) {
         node.setStyle('zIndex', 2);
 
         node.setStyles({
-            top: '-800px'
+            top: '-800px',
+            transform: 'scale(0.8, 0.8)'
         })
         .show()
         .transition({
@@ -213,11 +245,13 @@ YUI().use('node', 'transition', function(Y) {
             node.transition({
                 easing: 'ease-out',
                 duration: 0.25,
+                transform: 'scale(0.9, 0.9)',
                 top: '-200px'
             }, function() {
                 node.transition({
                     easing: 'ease-in',
                     duration: 0.15,
+                    transform: 'scale(1.0, 1.0)',
                     top: '0px'
                 }, function() {
                     currPage.hide();
