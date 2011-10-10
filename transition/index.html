@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <style type="text/css" media="screen">
+        nav.primary > ul {
+            text-align: center;
+        }
+        nav.primary > ul li {
+            list-style: none;
+            display: inline;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+
+        nav.primary > ul li a {
+            /*color: #fff;*/
+        }
+
+.page-container {
+    position: relative;
+    width: 960px;
+    height: 500px;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    /*activate the GPU for compositing each page */
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+    /*----------------------------pages*/
+    #home-page {
+        background-color: #6495ed;
+    }
+
+    #products-page {
+        background-color: #a52a2a;
+    }
+
+    #about-page {
+        background-color: #006400;
+    }
+
+    #contact-page {
+        background-color: #ff1493;
+        width: 100%;
+        height: 100%;
+    }
+
+    </style>
+</head>
+<body>
+    <nav class="primary">
+        <ul>
+            <li><a href="#" class="navi-link" transition-target="home-page">Home</a></li>
+            <li><a href="#" class="navi-link" transition-target="products-page">Products</a></li>
+            <li><a href="#" class="navi-link" transition-target="about-page">About</a></li>
+            <li><a href="#" class="navi-link" transition-target="contact-page">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="page-container">
+        <div id="front" class="normal">
+            <div id="home-page" class="page">
+                <h1>Home Page</h1>
+            </div>
+            <div id="products-page" class="page stage-right">
+                <h1>Products Page</h1>
+            </div>
+            <div id="about-page" class="page stage-left">
+                <h1>About Page</h1>
+            </div>
+        </div>
+        <div id="back" class="flipped">
+            <div id="contact-page" class="page">
+                <h1>Contact Page</h1>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+YUI().use('node', 'transition', function(Y) {
+
+    var allPages = Y.all('.page');
+
+    function fadeIn(node) {
+        allPages.each(function(n, i, list) {
+            //if (n !== node) {
+                n.hide();
+            //}
+        });
+
+        //node.show('fadeIn');
+        node.setStyles({
+            opacity: '0'
+        })
+        .show()
+        .transition({
+            easying: 'east-out',
+            opacity: '1',
+            duration: 1.25
+        });
+
+    }
+
+    function flyIn(node) {
+        allPages.each(function(n, i, list) {
+            if (n !== node) {
+                n.hide();
+            }
+        });
+
+        node.setStyles({
+            left: '400px',
+            top: '-400px',
+            transform: 'rotate(30deg)'
+        })
+        .show()
+        .transition({
+            easying: 'east-in',
+            duration: 0.75,
+            left: '0',
+            top: '0',
+            transform: 'rotate(0deg)'
+        });
+    }
+
+    function onNavi(e) {
+        e.halt();
+
+        var newTarget = e.currentTarget.getAttribute('transition-target');
+        flyIn(Y.one('#' + newTarget));
+        //fadeIn(Y.one('#' + newTarget));
+    };
+
+    Y.on('domready', function() {
+        Y.delegate('click', onNavi, 'body', '.navi-link');
+    });
+});
+    </script>
+</body>
+</html>
