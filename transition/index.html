@@ -9,6 +9,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <title>Index</title>
     <style type="text/css" media="screen">
+        body {
+            overflow: hidden;
+            background: #E9E9E9;
+            margin: 10px;
+            padding: 0;
+        }
+
+        nav {
+            height: 40px;
+        }
         nav.primary > ul {
             text-align: center;
         }
@@ -23,11 +33,30 @@
             /*color: #fff;*/
         }
 
-.page-container {
-    position: relative;
-    width: 960px;
-    height: 500px;
-}
+        /* default value */
+        .page-container {
+            position: relative;
+            width: 1004px;
+            height: 728px;
+            background: #FFF;
+        }
+
+        @media screen and (max-device-width: 1024px) and (orientation:landscape) {
+            .page-container {
+                position: relative;
+                width: 1004px;
+                height: 728px;
+            }
+        }
+
+        @media screen and (max-device-width: 1024px) and (orientation:portrait) {
+            .page-container {
+                position: relative;
+                width: 748px;
+                height: 984px;
+            }
+        }
+
 
 .page {
     position: absolute;
@@ -57,341 +86,192 @@
         height: 100%;
     }
 
-    </style>
+/   </style>
 </head>
 <body>
-    <nav class="primary">
-        <ul>
-            <li><a href="#" class="navi-link" transition-target="home-page">Home</a></li>
-            <li><a href="#" class="navi-link" transition-target="products-page">Products</a></li>
-            <li><a href="#" class="navi-link" transition-target="about-page">About</a></li>
-            <li><a href="#" class="navi-link" transition-target="contact-page">Contact</a></li>
-        </ul>
-    </nav>
     <div class="page-container">
-        <div id="front" class="normal">
-            <div id="home-page" class="page">
-                <h1>Home Page</h1>
-            </div>
-            <div id="products-page" class="page stage-right">
-                <h1>Products Page</h1>
-            </div>
-            <div id="about-page" class="page stage-left">
-                <h1>About Page</h1>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
+        <div id="home-page" class="page">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                </ul>
+            </nav>
 
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-                <div>
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                </div>
-
-
-            </div>
+            <h1>Home Page</h1>
         </div>
-        <div id="back" class="flipped">
-            <div id="contact-page" class="page">
-                <h1>Contact Page</h1>
-            </div>
+        <div id="products-page" class="page stage-right">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>Products Page</h1>
+        </div>
+        <div id="about-page" class="page stage-left">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>About Page</h1>
+        </div>
+        <div id="contact-page" class="page">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="bounce">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>Contact Page</h1>
         </div>
     </div>
 
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script type="text/html">
+
+    </script>
+
     <script type="text/javascript" charset="utf-8">
 YUI().use('node', 'transition', function(Y) {
 
-    var allPages = Y.all('.page');
+    var allPages = Y.all('.page'),
+        currPage = Y.one('#contact-page'),
+        pageTrans = {};
 
-    function fadeIn(node) {
+    function hideURLbar() {
+        setTimeout(function() {
+            window.scrollTo(0, 1);
+        }, 100);
+    }
+
+    pageTrans.fadeIn = function (node) {
+        if (node == currPage) return;
+
         allPages.each(function(n, i, list) {
-            //if (n !== node) {
+            if (n !== currPage) {
                 n.hide();
-            //}
+            } else {
+                //alert(currPage);
+            }
         });
 
-        //node.show('fadeIn');
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
         node.setStyles({
             opacity: '0'
         })
         .show()
         .transition({
-            easying: 'east-out',
-            opacity: '1',
-            duration: 1.25
+            easing: 'ease-out',
+            duration: 0.75,
+            opacity: '1'
+        }, function() {
+            currPage.hide();
+            currPage = node;
         });
+    };
 
-    }
+    pageTrans.bounce = function (node) {
+        if (node == currPage) return;
 
-    function flyIn(node) {
         allPages.each(function(n, i, list) {
-            if (n !== node) {
+            if (n !== currPage) {
                 n.hide();
+            } else {
+                //alert(currPage);
             }
         });
 
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
         node.setStyles({
-            left: '400px',
-            top: '-400px',
-            transform: 'rotate(30deg)'
+            top: '-800px'
         })
         .show()
         .transition({
-            easying: 'east-in',
+            easing: 'ease-in',
+            //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
+            duration: 0.55,
+            top: '0'
+        }, function() {
+            node.transition({
+                easing: 'ease-out',
+                duration: 0.25,
+                top: '-200px'
+            }, function() {
+                node.transition({
+                    easing: 'ease-in',
+                    duration: 0.15,
+                    top: '0px'
+                }, function() {
+                    currPage.hide();
+                    currPage = node;
+                });
+            });
+        });
+    };
+
+    pageTrans.flyIn = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            left: '500px',
+            top: '500px',
+            transform: 'rotate(60deg)'
+            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-out',
+            //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
             duration: 0.75,
             left: '0',
             top: '0',
             transform: 'rotate(0deg)'
+        }, function() {
+            currPage.hide();
+            currPage = node;
         });
-    }
+    };
 
     function onNavi(e) {
         e.halt();
 
-        var newTarget = e.currentTarget.getAttribute('transition-target');
-        flyIn(Y.one('#' + newTarget));
-        //fadeIn(Y.one('#' + newTarget));
+        var newTarget = e.currentTarget.getAttribute('transition-target'),
+            method = e.currentTarget.getAttribute('transition-method');
+
+        pageTrans[method](Y.one('#' + newTarget));
     };
 
     Y.on('domready', function() {
+        hideURLbar();
         Y.delegate('click', onNavi, 'body', '.navi-link');
     });
 });
