@@ -101,6 +101,7 @@
             </nav>
 
             <h1>Home Page</h1>
+            <div class="content"></div>
         </div>
         <div id="products-page" class="page stage-right">
             <nav class="primary">
@@ -113,6 +114,7 @@
             </nav>
 
             <h1>Products Page</h1>
+            <div class="content"></div>
         </div>
         <div id="about-page" class="page stage-left">
             <nav class="primary">
@@ -125,6 +127,7 @@
             </nav>
 
             <h1>About Page</h1>
+            <div class="content"></div>
         </div>
         <div id="contact-page" class="page">
             <nav class="primary">
@@ -137,16 +140,28 @@
             </nav>
 
             <h1>Contact Page</h1>
+            <div class="content"></div>
         </div>
     </div>
 
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
-    <script type="text/html">
-
+    <script id="home-page-template" type="text/html">
+        <div id="wrap">
+           <div id="header"></div>
+           <div id="content">
+              <div id="main">{main}</div>
+              <div id="side">
+                 <div id="sidea">{sidea}</div>
+                 <div id="sideb">{sideb}</div>
+                 <div id="sidec">{sidec}</div>
+              </div>
+           </div>
+           <div id="footer"></div>
+        </div>
     </script>
 
     <script type="text/javascript" charset="utf-8">
-YUI().use('node', 'transition', function(Y) {
+YUI().use('node', 'datasource', 'transition', function(Y) {
 
     var allPages = Y.all('.page'),
         currPage = Y.one('#contact-page'),
@@ -298,8 +313,24 @@ YUI().use('node', 'transition', function(Y) {
     function onNavi(e) {
         e.halt();
 
-        var newTarget = e.currentTarget.getAttribute('transition-target'),
+        var ds,
+            newTarget = e.currentTarget.getAttribute('transition-target'),
             method = e.currentTarget.getAttribute('transition-method');
+
+        ds = new Y.DataSource.IO({
+            source: 'data.json'
+        });
+
+        ds.sendRequest({
+            callback: {
+                success: function(e) {
+                    //alert('success');
+                },
+                failure: function(e) {
+                    alert('failure');
+                }
+            }
+        });
 
         pageTrans[method](Y.one('#' + newTarget));
     };
