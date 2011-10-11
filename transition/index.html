@@ -352,7 +352,8 @@ YUI().use('node', 'yql', 'transition', function(Y) {
 
     Y.on('domready', function() {
         hideURLbar();
-        Y.delegate('click', onNavi, 'body', '.navi-link');
+        //Y.delegate('click', onNavi, 'body', '.navi-link');
+        Y.delegate('touchend', onNavi, 'body', '.navi-link');
     });
 });
     </script>
