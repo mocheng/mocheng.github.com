@@ -338,8 +338,13 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         e.halt();
 
         var newTarget = e.currentTarget.getAttribute('transition-target'),
-            targetNode = Y.one('#' + newTarget),
             method = e.currentTarget.getAttribute('transition-method');
+
+        activatePage(newTarget, method);
+    }
+
+    function activatePage(newTarget, method) {
+        var targetNode = Y.one('#' + newTarget);
 
         if (!targetNode.one('.content').get('innerHTML')) 
         {
@@ -359,6 +364,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
     Y.on('domready', function() {
         hideURLbar();
         Y.delegate('click', onNavi, 'body', '.navi-link');
+        activatePage('road', 'starWar');
     });
 });
     </script>
