@@ -80,7 +80,7 @@
         background-color: #006400;
     }
 
-    #shout {
+    #road {
         background-color: #ff1493;
         width: 100%;
         height: 100%;
@@ -88,6 +88,8 @@
 
     .img_item {
         float: left;
+        width: 240px;
+        height: 240px;
     }
 
     .img_item h2 {
@@ -96,8 +98,6 @@
     }
 
     .img_item img {
-        width: 75px;
-        height: 75px;
     }
 
     </style>
@@ -110,7 +110,7 @@
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
                     <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
-                    <li><a href="#" class="navi-link" transition-target="shout" transition-method="starWar">Shout</a></li>
+                    <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
 
@@ -123,7 +123,7 @@
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
                     <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
-                    <li><a href="#" class="navi-link" transition-target="shout" transition-method="starWar">Shout</a></li>
+                    <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
 
@@ -136,24 +136,24 @@
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
                     <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
-                    <li><a href="#" class="navi-link" transition-target="shout" transition-method="starWar">Shout</a></li>
+                    <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
 
             <h1>rock Page</h1>
             <div class="content"></div>
         </div>
-        <div id="shout" class="page">
+        <div id="road" class="page">
             <nav class="primary">
                 <ul>
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
                     <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
-                    <li><a href="#" class="navi-link" transition-target="shout" transition-method="starWar">Shout</a></li>
+                    <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
 
-            <h1>Shout Page</h1>
+            <h1>road Page</h1>
             <div class="content"></div>
         </div>
     </div>
@@ -165,7 +165,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
 
     var IMAGE_HTML_TEMPLATE = '<div class="img_item"><img src="{s_img_url}" title="{title}"></div>',
         allPages = Y.all('.page'),
-        currPage = Y.one('#shout'),
+        currPage = Y.one('#road'),
         pageTrans = {};
 
     function hideURLbar() {
@@ -200,7 +200,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             //transform: 'matrix(1, 0, 0, 1, 0, 0)'
             transform: 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
         }, function() {
-            currPage.hide();
+            //currPage.hide();
             currPage = node;
         });
     };
@@ -228,7 +228,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             duration: 0.75,
             opacity: '1'
         }, function() {
-            currPage.hide();
+            //currPage.hide();
             currPage = node;
         });
     };
@@ -270,7 +270,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
                     transform: 'scale(1.0, 1.0)',
                     top: '0px'
                 }, function() {
-                    currPage.hide();
+                    //currPage.hide();
                     currPage = node;
                 });
             });
@@ -292,28 +292,35 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         node.setStyle('zIndex', 2);
 
         node.setStyles({
+                /*
             left: '500px',
             top: '500px',
             transform: 'rotate(60deg)'
+            */
+            transform: 'rotate(60deg) translate(500px, 500px)'
             //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
         })
         .show()
         .transition({
             easing: 'ease-out',
             //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
-            duration: 0.75,
+            duration: 0.40,
+            /*
             left: '0',
             top: '0',
             transform: 'rotate(0deg)'
+            */
+            transform: 'rotate(0deg) translate(0px, 0px)'
         }, function() {
-            currPage.hide();
+            //currPage.hide();
             currPage = node;
         });
     };
 
     function getFlickrImgUrl(photo) {
         //console.log(photo);
-        return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg', photo);
+        //return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg', photo);
+        return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_m.jpg', photo);
     }
 
     function getImageListHTML(photos) {
@@ -334,26 +341,23 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             targetNode = Y.one('#' + newTarget),
             method = e.currentTarget.getAttribute('transition-method');
 
-        /*
         if (!targetNode.one('.content').get('innerHTML')) 
         {
             //var queryStr = 'select * from flickr.photos.recent(100) where api_key="cc14eff933b3cb312f71af7ff3444eae"';
-            var queryStr = 'select * from flickr.photos.search(100) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var queryStr = 'select * from flickr.photos.search(20) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
             var q = Y.YQL(queryStr, function(r) {
                 console.log(r);
                 var html = getImageListHTML(r.query.results.photo);
                 targetNode.one('.content').set('innerHTML', html);
             });
         }
-        */
 
         pageTrans[method](targetNode);
     };
 
     Y.on('domready', function() {
         hideURLbar();
-        //Y.delegate('click', onNavi, 'body', '.navi-link');
-        Y.delegate('touchend', onNavi, 'body', '.navi-link');
+        Y.delegate('click', onNavi, 'body', '.navi-link');
     });
 });
     </script>

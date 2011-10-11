@@ -76,7 +76,7 @@
         background-color: #a52a2a;
     }
 
-    #people {
+    #rock {
         background-color: #006400;
     }
 
@@ -109,7 +109,7 @@
                 <ul>
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
-                    <li><a href="#" class="navi-link" transition-target="people" transition-method="fadeIn">People</a></li>
+                    <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
                     <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
@@ -122,7 +122,7 @@
                 <ul>
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
-                    <li><a href="#" class="navi-link" transition-target="people" transition-method="fadeIn">People</a></li>
+                    <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
                     <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
@@ -130,17 +130,17 @@
             <h1>Dogs Page</h1>
             <div class="content"></div>
         </div>
-        <div id="people" class="page stage-left">
+        <div id="rock" class="page stage-left">
             <nav class="primary">
                 <ul>
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
-                    <li><a href="#" class="navi-link" transition-target="people" transition-method="fadeIn">People</a></li>
+                    <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
                     <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
 
-            <h1>People Page</h1>
+            <h1>rock Page</h1>
             <div class="content"></div>
         </div>
         <div id="road" class="page">
@@ -148,7 +148,7 @@
                 <ul>
                     <li><a href="#" class="navi-link" transition-target="travel" transition-method="flyIn">Travel</a></li>
                     <li><a href="#" class="navi-link" transition-target="dog" transition-method="bounce">Dogs</a></li>
-                    <li><a href="#" class="navi-link" transition-target="people" transition-method="fadeIn">People</a></li>
+                    <li><a href="#" class="navi-link" transition-target="rock" transition-method="fadeIn">rock</a></li>
                     <li><a href="#" class="navi-link" transition-target="road" transition-method="starWar">road</a></li>
                 </ul>
             </nav>
@@ -248,27 +248,24 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         node.setStyle('zIndex', 2);
 
         node.setStyles({
-            top: '-800px',
-            transform: 'scale(0.8, 0.8)'
+            transform: 'scale(0.8, 0.8) translate(0, -800px)'
         })
         .show()
         .transition({
             easing: 'ease-in',
             //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
             duration: 0.55,
-            top: '0'
+            transform: 'scale(0.8, 0.8) translate(0, 0)'
         }, function() {
             node.transition({
                 easing: 'ease-out',
-                duration: 0.25,
-                transform: 'scale(0.9, 0.9)',
-                top: '-200px'
+                duration: 0.15,
+                transform: 'scale(0.9, 0.9) translate(0, -200px)',
             }, function() {
                 node.transition({
                     easing: 'ease-in',
                     duration: 0.15,
-                    transform: 'scale(1.0, 1.0)',
-                    top: '0px'
+                    transform: 'scale(1.0, 1.0) translate(0, 0)',
                 }, function() {
                     //currPage.hide();
                     currPage = node;
@@ -292,19 +289,24 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         node.setStyle('zIndex', 2);
 
         node.setStyles({
+                /*
             left: '500px',
             top: '500px',
             transform: 'rotate(60deg)'
-            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+            */
+            transform: 'rotate(60deg) translate(500px, 500px)'
         })
         .show()
         .transition({
             easing: 'ease-out',
             //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
             duration: 0.40,
+            /*
             left: '0',
             top: '0',
             transform: 'rotate(0deg)'
+            */
+            transform: 'rotate(0deg) translate(0px, 0px)'
         }, function() {
             //currPage.hide();
             currPage = node;
@@ -317,13 +319,18 @@ YUI().use('node', 'yql', 'transition', function(Y) {
     }
 
     function getImageListHTML(photos) {
-        var frags = [];
-        Y.Array.each(photos, function(v, i, a) {
-            var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
-                        s_img_url: getFlickrImgUrl(v)
-                    }));
-            frags.push(html);
-        });
+        var frags = [],
+            count = 0;
+
+        while (count < 100) {
+            Y.Array.each(photos, function(v, i, a) {
+                var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
+                            s_img_url: getFlickrImgUrl(v)
+                        }));
+                frags.push(html);
+                ++count;
+            });
+        }
         return frags.join('');
     }
 
@@ -337,7 +344,8 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         if (!targetNode.one('.content').get('innerHTML')) 
         {
             //var queryStr = 'select * from flickr.photos.recent(100) where api_key="cc14eff933b3cb312f71af7ff3444eae"';
-            var queryStr = 'select * from flickr.photos.search(100) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            //var queryStr = 'select * from flickr.photos.search(100) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var queryStr = 'select * from flickr.photos.search(10) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
             var q = Y.YQL(queryStr, function(r) {
                 console.log(r);
                 var html = getImageListHTML(r.query.results.photo);
