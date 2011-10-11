@@ -86,7 +86,21 @@
         height: 100%;
     }
 
-/   </style>
+    .img_item {
+        float: left;
+    }
+
+    .img_item h2 {
+        width: 75px;
+        overflow: hidden;
+    }
+
+    .img_item img {
+        width: 75px;
+        height: 75px;
+    }
+
+    </style>
 </head>
 <body>
     <div class="page-container">
@@ -146,24 +160,16 @@
 
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
     <script id="home-page-template" type="text/html">
-        <div id="wrap">
-           <div id="header"></div>
-           <div id="content">
-              <div id="main">{main}</div>
-              <div id="side">
-                 <div id="sidea">{sidea}</div>
-                 <div id="sideb">{sideb}</div>
-                 <div id="sidec">{sidec}</div>
-              </div>
-           </div>
-           <div id="footer"></div>
+        <div id="list">
+            <img src="{img_url}" title="{title}">
         </div>
     </script>
 
     <script type="text/javascript" charset="utf-8">
-YUI().use('node', 'datasource', 'transition', function(Y) {
+YUI().use('node', 'yql', 'transition', function(Y) {
 
-    var allPages = Y.all('.page'),
+    var IMAGE_HTML_TEMPLATE = '<div class="img_item"><img src="{s_img_url}" title="{title}"></div>',
+        allPages = Y.all('.page'),
         currPage = Y.one('#contact-page'),
         pageTrans = {};
 
@@ -310,29 +316,38 @@ YUI().use('node', 'datasource', 'transition', function(Y) {
         });
     };
 
+    function getFlickrImgUrl(photo) {
+        //console.log(photo);
+        return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg', photo);
+    }
+
+    function getImageListHTML(photos) {
+        var frags = [];
+        Y.Array.each(photos, function(v, i, a) {
+            var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
+                        s_img_url: getFlickrImgUrl(v)
+                    }));
+            frags.push(html);
+        });
+        return frags.join('');
+    }
+
     function onNavi(e) {
         e.halt();
 
-        var ds,
-            newTarget = e.currentTarget.getAttribute('transition-target'),
+        var newTarget = e.currentTarget.getAttribute('transition-target'),
+            targetNode = Y.one('#' + newTarget),
             method = e.currentTarget.getAttribute('transition-method');
 
-        ds = new Y.DataSource.IO({
-            source: 'data.json'
-        });
+        if (!targetNode.one('.content').get('innerHTML')) {
+            var queryStr = 'select * from flickr.photos.recent(100) where api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var q = Y.YQL(queryStr, function(r) {
+                var html = getImageListHTML(r.query.results.photo);
+                targetNode.one('.content').set('innerHTML', html);
+            });
+        }
 
-        ds.sendRequest({
-            callback: {
-                success: function(e) {
-                    //alert('success');
-                },
-                failure: function(e) {
-                    alert('failure');
-                }
-            }
-        });
-
-        pageTrans[method](Y.one('#' + newTarget));
+        pageTrans[method](targetNode);
     };
 
     Y.on('domready', function() {
