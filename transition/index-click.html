@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <style type="text/css" media="screen">
+        body {
+            overflow: hidden;
+            background: #E9E9E9;
+            margin: 10px;
+            padding: 0;
+        }
+
+        nav {
+            height: 40px;
+        }
+        nav.primary > ul {
+            text-align: center;
+        }
+        nav.primary > ul li {
+            list-style: none;
+            display: inline;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+
+        nav.primary > ul li a {
+            /*color: #fff;*/
+        }
+
+        /* default value */
+        .page-container {
+            position: relative;
+            width: 1004px;
+            height: 728px;
+            background: #FFF;
+        }
+
+        @media screen and (max-device-width: 1024px) and (orientation:landscape) {
+            .page-container {
+                position: relative;
+                width: 1004px;
+                height: 728px;
+            }
+        }
+
+        @media screen and (max-device-width: 1024px) and (orientation:portrait) {
+            .page-container {
+                position: relative;
+                width: 748px;
+                height: 984px;
+            }
+        }
+
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    /*activate the GPU for compositing each page */
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+    /*----------------------------pages*/
+    #home-page {
+        background-color: #6495ed;
+    }
+
+    #products-page {
+        background-color: #a52a2a;
+    }
+
+    #about-page {
+        background-color: #006400;
+    }
+
+    #contact-page {
+        background-color: #ff1493;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img_item {
+        float: left;
+    }
+
+    .img_item h2 {
+        width: 75px;
+        overflow: hidden;
+    }
+
+    .img_item img {
+        width: 75px;
+        height: 75px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div id="home-page" class="page">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>Home Page</h1>
+            <div class="content"></div>
+        </div>
+        <div id="products-page" class="page stage-right">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>Products Page</h1>
+            <div class="content"></div>
+        </div>
+        <div id="about-page" class="page stage-left">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>About Page</h1>
+            <div class="content"></div>
+        </div>
+        <div id="contact-page" class="page">
+            <nav class="primary">
+                <ul>
+                    <li><a href="#" class="navi-link" transition-target="home-page" transition-method="flyIn">Home</a></li>
+                    <li><a href="#" class="navi-link" transition-target="products-page" transition-method="bounce">Products</a></li>
+                    <li><a href="#" class="navi-link" transition-target="about-page" transition-method="fadeIn">About</a></li>
+                    <li><a href="#" class="navi-link" transition-target="contact-page" transition-method="starWar">Contact</a></li>
+                </ul>
+            </nav>
+
+            <h1>Contact Page</h1>
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script id="home-page-template" type="text/html">
+        <div id="list">
+            <img src="{img_url}" title="{title}">
+        </div>
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+YUI().use('node', 'yql', 'transition', function(Y) {
+
+    var IMAGE_HTML_TEMPLATE = '<div class="img_item"><img src="{s_img_url}" title="{title}"></div>',
+        allPages = Y.all('.page'),
+        currPage = Y.one('#contact-page'),
+        pageTrans = {};
+
+    function hideURLbar() {
+        setTimeout(function() {
+            window.scrollTo(0, 1);
+        }, 100);
+    };
+
+    pageTrans.starWar = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+            //transform: 'matrix3d(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 2)'
+            transform: 'matrix3d(0.806406, -0.121748, 0, -0.001493, -0.047822, 0.371861, 0, -0.00037, 0, 0, 0.4, 0, -163, -264, 230, 1)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-out',
+            duration: 0.75,
+            //transform: 'matrix(1, 0, 0, 1, 0, 0)'
+            transform: 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
+        }, function() {
+            currPage.hide();
+            currPage = node;
+        });
+    };
+
+    pageTrans.fadeIn = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            opacity: '0'
+        })
+        .show()
+        .transition({
+            easing: 'ease-in-out',
+            duration: 0.75,
+            opacity: '1'
+        }, function() {
+            currPage.hide();
+            currPage = node;
+        });
+    };
+
+    pageTrans.bounce = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            top: '-800px',
+            transform: 'scale(0.8, 0.8)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-in',
+            //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
+            duration: 0.55,
+            top: '0'
+        }, function() {
+            node.transition({
+                easing: 'ease-out',
+                duration: 0.25,
+                transform: 'scale(0.9, 0.9)',
+                top: '-200px'
+            }, function() {
+                node.transition({
+                    easing: 'ease-in',
+                    duration: 0.15,
+                    transform: 'scale(1.0, 1.0)',
+                    top: '0px'
+                }, function() {
+                    currPage.hide();
+                    currPage = node;
+                });
+            });
+        });
+    };
+
+    pageTrans.flyIn = function (node) {
+        if (node == currPage) return;
+
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+
+        node.setStyles({
+            left: '500px',
+            top: '500px',
+            transform: 'rotate(60deg)'
+            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-out',
+            //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
+            duration: 0.75,
+            left: '0',
+            top: '0',
+            transform: 'rotate(0deg)'
+        }, function() {
+            currPage.hide();
+            currPage = node;
+        });
+    };
+
+    function getFlickrImgUrl(photo) {
+        //console.log(photo);
+        return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg', photo);
+    }
+
+    function getImageListHTML(photos) {
+        var frags = [];
+        Y.Array.each(photos, function(v, i, a) {
+            var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
+                        s_img_url: getFlickrImgUrl(v)
+                    }));
+            frags.push(html);
+        });
+        return frags.join('');
+    }
+
+    function onNavi(e) {
+        e.halt();
+
+        var newTarget = e.currentTarget.getAttribute('transition-target'),
+            targetNode = Y.one('#' + newTarget),
+            method = e.currentTarget.getAttribute('transition-method');
+
+        if (!targetNode.one('.content').get('innerHTML')) {
+            var queryStr = 'select * from flickr.photos.recent(100) where api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var q = Y.YQL(queryStr, function(r) {
+                var html = getImageListHTML(r.query.results.photo);
+                targetNode.one('.content').set('innerHTML', html);
+            });
+        }
+
+        pageTrans[method](targetNode);
+    };
+
+    Y.on('domready', function() {
+        hideURLbar();
+        Y.delegate('click', onNavi, 'body', '.navi-link');
+        //Y.delegate('touchend', onNavi, 'body', '.navi-link');
+    });
+});
+    </script>
+</body>
+</html>
