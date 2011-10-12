@@ -57,6 +57,29 @@
             }
         }
 
+/* animation */
+@-webkit-keyframes ballbounce {
+    from {
+        /*top: -800px;*/
+        -webkit-transform: scale(0.2) translate(0, -800px)
+    }
+    33% {
+        /*top: 0px;*/
+        -webkit-transform: scale(0.5) translate(0, 0)
+    }
+    66% {
+        /*top: -200px;*/
+        -webkit-transform: scale(1) translate(0, -200px)
+    }
+    to {
+        /*top: 0;*/
+        -webkit-transform: scale(1) translate(0, 0)
+    }
+}
+
+.bouncing {
+    -webkit-animation: ballbounce 0.7s ease-out;
+}
 
 .page {
     position: absolute;
@@ -247,6 +270,15 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         currPage.setStyle('zIndex', 1);
         node.setStyle('zIndex', 2);
 
+        node.show().addClass('bouncing');
+
+        //TODO: if transition end is reliable, we should use it.
+        Y.later(700, null, function() {
+            currPage = node;
+            node.removeClass('bouncing');
+        });
+
+        /*
         node.setStyles({
             transform: 'scale(0.8, 0.8) translate(0, -800px)'
         })
@@ -272,6 +304,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
                 });
             });
         });
+        */
     };
 
     pageTrans.flyIn = function (node) {
@@ -322,7 +355,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         var frags = [],
             count = 0;
 
-        while (count < 1000) {
+        while (count < 1003) {
             Y.Array.each(photos, function(v, i, a) {
                 var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
                             s_img_url: getFlickrImgUrl(v)
@@ -352,7 +385,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             //var queryStr = 'select * from flickr.photos.search(100) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
             var queryStr = 'select * from flickr.photos.search(10) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
             var q = Y.YQL(queryStr, function(r) {
-                console.log(r);
+                //console.log(r);
                 var html = getImageListHTML(r.query.results.photo);
                 targetNode.one('.content').set('innerHTML', html);
             });
