@@ -15,6 +15,12 @@
             margin: 10px;
             padding: 0;
         }
+        #console {
+            z-index: 999;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
 
         nav {
             height: 40px;
@@ -126,6 +132,15 @@
     </style>
 </head>
 <body>
+    <div id="console">
+        <div>
+            <span>Current FPS<span><span id="currFPS"></span>
+        </div>
+        <div>
+            <span>FPS Stats<span><span id="fpsStats"></span>
+        </div>
+    </div>
+
     <div class="page-container">
         <div id="travel" class="page">
             <nav class="primary">
@@ -182,14 +197,28 @@
     </div>
 
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script type="text/javascript" src="FPSMeter.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    </script>
 
     <script type="text/javascript" charset="utf-8">
 YUI().use('node', 'yql', 'transition', function(Y) {
 
+
     var IMAGE_HTML_TEMPLATE = '<div class="img_item"><img src="{s_img_url}" title="{title}"></div>',
         allPages = Y.all('.page'),
         currPage = Y.one('#road'),
-        pageTrans = {};
+        pageTrans = {},
+        currFPS = Y.one('#currFPS'),
+        fpsStats = Y.one('#fpsStats');
+
+    function logFps(fps){
+        // Do some stuff here with current FPS
+        currFPS.set('innerHTML', fps + '@' + new Date().toString());
+    }
+    function endFps(minfps,avgfps,maxfps){
+        fpsStats.set('innerHTML', 'min: ' + minfps + ', avg: ' + avgfps + ', max' + maxfps + '@' + new Date().toString());
+    }
 
     function hideURLbar() {
         setTimeout(function() {
@@ -198,6 +227,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
     };
 
     pageTrans.starWar = function (node) {
+        var duration = 0.75;
         if (node == currPage) return;
 
         allPages.each(function(n, i, list) {
@@ -210,6 +240,8 @@ YUI().use('node', 'yql', 'transition', function(Y) {
 
         currPage.setStyle('zIndex', 1);
         node.setStyle('zIndex', 2);
+
+        new FPSMeter(logFps, endFps).run(duration);
 
         node.setStyles({
             //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
@@ -219,7 +251,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         .show()
         .transition({
             easing: 'ease-out',
-            duration: 0.75,
+            duration: duration,
             //transform: 'matrix(1, 0, 0, 1, 0, 0)'
             transform: 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
         }, function() {
@@ -229,6 +261,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
     };
 
     pageTrans.fadeIn = function (node) {
+        var duration = 0.75;
         if (node == currPage) return;
 
         allPages.each(function(n, i, list) {
@@ -242,13 +275,15 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         currPage.setStyle('zIndex', 1);
         node.setStyle('zIndex', 2);
 
+        new FPSMeter(logFps, endFps).run(duration);
+
         node.setStyles({
             opacity: '0'
         })
         .show()
         .transition({
             easing: 'ease-in-out',
-            duration: 0.75,
+            duration: duration,
             opacity: '1'
         }, function() {
             //currPage.hide();
@@ -266,6 +301,8 @@ YUI().use('node', 'yql', 'transition', function(Y) {
                 //alert(currPage);
             }
         });
+
+        new FPSMeter(logFps, endFps).run(0.7);
 
         currPage.setStyle('zIndex', 1);
         node.setStyle('zIndex', 2);
@@ -308,6 +345,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
     };
 
     pageTrans.flyIn = function (node) {
+        var duration = 0.4;
         if (node == currPage) return;
 
         allPages.each(function(n, i, list) {
@@ -321,6 +359,8 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         currPage.setStyle('zIndex', 1);
         node.setStyle('zIndex', 2);
 
+        new FPSMeter(logFps, endFps).run(duration);
+
         node.setStyles({
                 /*
             left: '500px',
@@ -333,7 +373,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         .transition({
             easing: 'ease-out',
             //easing: 'cubic-bezier(0, 0.35, 0.5, 0)',
-            duration: 0.40,
+            duration: duration,
             /*
             left: '0',
             top: '0',
