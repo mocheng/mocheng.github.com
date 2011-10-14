@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+
+    <title>Wrapper</title>
+    <style type="text/css" media="screen">
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="wrapper-frame" src="index.html" style="border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
+
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+YUI().use('node', 'yql', 'transition', function(Y) {
+    var starWar = function (node) {
+        //if (node == currPage) return;
+
+    /*
+        allPages.each(function(n, i, list) {
+            if (n !== currPage) {
+                n.hide();
+            } else {
+                //alert(currPage);
+            }
+        });
+        */
+
+    /*
+        currPage.setStyle('zIndex', 1);
+        node.setStyle('zIndex', 2);
+        */
+
+        node.setStyles({
+            //transform: 'matrix(1, -0.2, 0, 1, 0, 0)'
+            //transform: 'matrix3d(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 2)'
+            transform: 'matrix3d(0.806406, -0.121748, 0, -0.001493, -0.047822, 0.371861, 0, -0.00037, 0, 0, 0.4, 0, -163, -264, 230, 1)'
+        })
+        .show()
+        .transition({
+            easing: 'ease-out',
+            duration: 0.75,
+            //transform: 'matrix(1, 0, 0, 1, 0, 0)'
+            transform: 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
+        }, function() {
+            node.setStyle('zIndex', 100);
+            //currPage.hide();
+            //currPage = node;
+        });
+    };
+
+    setTimeout(function() {
+        starWar(Y.one('#wrapper-frame'));
+    }, 4000);
+});
+
+    </script>
+</body>
+</html>
