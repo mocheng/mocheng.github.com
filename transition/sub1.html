@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <!--
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    -->
+    <!-- enable full-screen mode -->
+    <!--
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    -->
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <!--
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    -->
+    <title>Index</title>
+    <style type="text/css" media="screen">
+        body {
+            overflow: hidden;
+            background: #E9E9E9;
+            margin: 10px;
+            padding: 0;
+        }
+        #console {
+            z-index: 999;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        nav {
+            height: 40px;
+        }
+        nav.primary > ul {
+            text-align: center;
+        }
+        nav.primary > ul li {
+            list-style: none;
+            display: inline;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+
+        nav.primary > ul li a {
+            /*color: #fff;*/
+        }
+
+        /* default value */
+        .page-container {
+            position: relative;
+            width: 1004px;
+            height: 728px;
+            /*background: #FFF;*/
+        }
+
+        /*
+        @media screen and (max-device-width: 1024px) and (orientation:landscape) {
+            .page-container {
+                position: relative;
+                width: 1004px;
+                height: 728px;
+            }
+        }
+
+        @media screen and (max-device-width: 1024px) and (orientation:portrait) {
+            .page-container {
+                position: relative;
+                width: 748px;
+                height: 984px;
+            }
+        }
+        */
+
+/* animation */
+@-webkit-keyframes ballbounce {
+    from {
+        /*top: -800px;*/
+        -webkit-transform: scale(0.2) translate(0, -800px)
+    }
+    33% {
+        /*top: 0px;*/
+        -webkit-transform: scale(0.5) translate(0, 0)
+    }
+    66% {
+        /*top: -200px;*/
+        -webkit-transform: scale(1) translate(0, -200px)
+    }
+    to {
+        /*top: 0;*/
+        -webkit-transform: scale(1) translate(0, 0)
+    }
+}
+
+.bouncing {
+    -webkit-animation: ballbounce 0.7s ease-out;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    /*activate the GPU for compositing each page */
+    -webkit-transform: translate3d(0, 0, 0);
+    /*-webkit-transform: scale(1);*/
+}
+
+    /*----------------------------pages*/
+    #travel {
+        /*background-color: #6495ed;*/
+    }
+
+    #dog {
+        background-color: #a52a2a;
+    }
+
+    #rock {
+        background-color: #006400;
+    }
+
+    #road {
+        background-color: #ff1493;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img_item {
+        float: left;
+    }
+
+    .img_item h2 {
+        width: 75px;
+        overflow: hidden;
+    }
+
+    .img_item img {
+        width: 75px;
+        height: 75px;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="console">
+        <!-- the FPS meter is according to http://www.kaizou.org/2011/06/effectively-measuring-browser-framerate-using-css/ -->
+        <div>
+            <span>Current FPS<span><span id="currFPS"></span>
+        </div>
+        <div>
+            <span>FPS Stats<span><span id="fpsStats"></span>
+        </div>
+    </div>
+
+    <div class="page-container">
+        <div id="travel" class="page">
+            <h1>Travel Page</h1>
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script type="text/javascript" src="FPSMeter.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+YUI().use('node', 'yql', 'transition', function(Y) {
+
+    var IMAGE_HTML_TEMPLATE = '<div class="img_item"><img src="{s_img_url}" title="{title}"></div>',
+        allPages = Y.all('.page'),
+        currPage = Y.one('#road'),
+        pageTrans = {},
+        currFPS = Y.one('#currFPS'),
+        fpsStats = Y.one('#fpsStats');
+
+    function logFps(fps){
+        // Do some stuff here with current FPS
+        currFPS.set('innerHTML', fps + '@' + new Date().toString());
+    }
+    function endFps(minfps,avgfps,maxfps){
+        fpsStats.set('innerHTML', 'min: ' + minfps + ', avg: ' + avgfps + ', max' + maxfps + '@' + new Date().toString());
+    }
+
+    function hideURLbar() {
+        setTimeout(function() {
+            window.scrollTo(0, 1);
+        }, 100);
+    };
+
+    function getFlickrImgUrl(photo) {
+        //console.log(photo);
+        return Y.Lang.sub('http://farm{farm}.static.flickr.com/{server}/{id}_{secret}_s.jpg', photo);
+    }
+
+    function getImageListHTML(photos) {
+        var frags = [],
+            count = 0;
+
+        while (count < 503) {
+            Y.Array.each(photos, function(v, i, a) {
+                var html = Y.Lang.sub(IMAGE_HTML_TEMPLATE, Y.merge(v, {
+                            s_img_url: getFlickrImgUrl(v)
+                        }));
+                frags.push(html);
+                ++count;
+            });
+        }
+        return frags.join('');
+    }
+
+    function activatePage() {
+        var targetNode = Y.one('#travel'),
+            newTarget = 'Travel';
+
+        if (!targetNode.one('.content').get('innerHTML')) 
+        {
+            //var queryStr = 'select * from flickr.photos.recent(100) where api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            //var queryStr = 'select * from flickr.photos.search(100) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var queryStr = 'select * from flickr.photos.search(10) where text="' + newTarget + '" and api_key="cc14eff933b3cb312f71af7ff3444eae"';
+            var q = Y.YQL(queryStr, function(r) {
+                //console.log(r);
+                var html = getImageListHTML(r.query.results.photo);
+                targetNode.one('.content').set('innerHTML', html);
+            });
+        }
+
+        //pageTrans[method](targetNode);
+    };
+
+    Y.on('domready', function() {
+        hideURLbar();
+        //Y.delegate('click', onNavi, 'body', '.navi-link');
+        activatePage();
+    });
+});
+    </script>
+</body>
+</html>
