@@ -19,7 +19,9 @@
         }
 
         .card-container:hover .card{
-            -webkit-transform: rotateY(180deg);
+            /*-webkit-transform: rotateY(180deg);*/
+            /*-webkit-transform: rotateY(-180deg) translateX(-100%);*/
+            -webkit-transform: rotateY(180deg) translateX(100%);
         }
 
         .card {
@@ -30,6 +32,8 @@
             /*-webkit-perspective: 1000;*/
             -webkit-transform-style: preserve-3d;
             -webkit-transition: 0.75s ease-in-out;
+
+            -webkit-transform-origin: right center;
         }
 
         .card .face {
@@ -44,7 +48,6 @@
             -webkit-transform: rotateY(180deg);
             background: blue;
         }
-
 
     </style>
 </head>
