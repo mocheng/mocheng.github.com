@@ -59,12 +59,6 @@
             /*color: #fff;*/
         }
 
-        .wrapper {
-            position: absolute;
-            width:100%;
-            height: 100%;
-        }
-
     </style>
 </head>
 <body>
@@ -80,15 +74,9 @@
 
     <div id="content-container">
         <div>
-            <div id="wrapper-0" class="wrapper">
-                <iframe id="wrapper-frame-0" src="sub1.html" style="position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
-            </div>
-            <div id="wrapper-1" class="wrapper">
-                <iframe id="wrapper-frame-1" style="display: hidden; position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
-            </div>
-            <div id="wrapper-2" class="wrapper">
-                <iframe id="wrapper-frame-2" style="display: hidden; position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
-            </div>
+            <iframe id="wrapper-frame-0" src="sub1.html" style="position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
+            <iframe id="wrapper-frame-1" style="display: hidden; position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
+            <iframe id="wrapper-frame-2" style="display: hidden; position: absolute; z-index: 1;border: 0; width: 1024px; height: 768px">Your browser doesn't support iframe.</iframe>
         </div>
     </div>
     <div class="navi-bar">
@@ -107,9 +95,9 @@
 YUI().use('node', 'yql', 'transition', function(Y) {
 
     var allocateFrame, activateFrame,
-        currPage = Y.one('#wrapper-0'),
+        currPage = Y.one('#wrapper-frame-0'),
         //allPages = [Y.one('#wrapper-frame-0'), Y.one('#wrapper-frame-1'), Y.one('#wrapper-frame-2')],
-        allPages = Y.all('.wrapper');
+        allPages = Y.all('iframe');
         pageTrans = {};
 
     var currFPS = Y.one('#currFPS'),
@@ -132,6 +120,9 @@ YUI().use('node', 'yql', 'transition', function(Y) {
 
         if (node == currPage) return;
 
+        //alert(currPage);
+        //alert(node);
+
         allPages.each(function(n, i, list) {
             if (n !== currPage) {
                 n.hide();
@@ -144,8 +135,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         node.setStyle('z-index', 2);
         //alert(node.getStyle('z-index'));
 
-        //This might impact perfomrnace!!!
-        new FPSMeter(logFps, endFps).run(duration);
+        new FPSMeter(logFps, endFps).run(duration + 1);
 
         node.setStyles({
                 /*
@@ -167,7 +157,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             */
             transform: 'rotate(0deg) translate(0px, 0px)'
         }, function() {
-            //currPage.hide();
+            currPage.hide();
             currPage = node;
         });
     };
@@ -184,11 +174,10 @@ YUI().use('node', 'yql', 'transition', function(Y) {
         };
     }());
 
-    activatePage = function(wrapper, newTarget, method) {
+    activatePage = function(frame, newTarget, method) {
         //frame.show();
 
-        var frame = wrapper.one('iframe'),
-            targetPageURL = newTarget + '.html';
+        var targetPageURL = newTarget + '.html';
 
         console.log('targetPageURL=' + targetPageURL);
         console.log('current URL =' + frame.getAttribute('src'));
@@ -199,7 +188,7 @@ YUI().use('node', 'yql', 'transition', function(Y) {
             frame.setAttribute('src', newTarget + '.html');
         }
 
-        pageTrans[method](wrapper);
+        pageTrans[method](frame);
     };
 
     function onNavi(e) {
