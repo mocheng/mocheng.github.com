@@ -7,8 +7,15 @@
     height: 480px;
 }
 
+.card-container .card{
+    border: 1px solid gray;
+    -webkit-box-shadow: 10px 10px 15px #888;
+}
+
 .card-container.flipped .card{
     -webkit-transform: rotateY(180deg) translateX(100%);
+
+    -webkit-box-shadow: -10px 10px 15px #888; /* make sure the shadow is not reverse after flipped */
 }
 
 .card {
