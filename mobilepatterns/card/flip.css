@@ -7,7 +7,7 @@
     height: 480px;
 }
 
-.card-container:hover .card{
+.card-container.flipped .card{
     -webkit-transform: rotateY(180deg);
 }
 

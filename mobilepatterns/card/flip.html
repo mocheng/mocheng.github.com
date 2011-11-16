@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <title>Index</title>
     <link rel="stylesheet" href="flip.css" type="text/css" media="screen" charset="utf-8">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
 </head>
 <body>
 <div class="card-container">
@@ -21,6 +22,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('node', function(Y) {
+    Y.all('.card-container').on('click', function(e) {
+        e.currentTarget.toggleClass('flipped');
+    });
+});
+</script>
 
 </body>
 </html>
