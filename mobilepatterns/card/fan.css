@@ -4,6 +4,7 @@
 
 .card-container .card{
     border: 1px solid gray;
+    -webkit-box-shadow: 10px 10px 15px #888;
 }
 
 .unfold .card-1 {
