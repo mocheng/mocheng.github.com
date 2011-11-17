@@ -1,0 +1,74 @@
+.card-fold {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    -webkit-perspective: 1000;
+}
+
+.card-fold .roll {
+    position: absolute;
+    width: 320px;
+    height: 480px;
+
+    /*-webkit-transform-origin: left center;*/
+    /*left: 640px;*/
+    z-index: 100;
+    background: black;
+}
+
+.card-container {
+    float: left;
+    border: 0px solid gray;
+    /*margin: 2px;*/
+
+    -webkit-perspective: 1000;
+
+    width: 320px;
+    height: 480px;
+
+    -webkit-transform-origin: left center;
+}
+
+/*
+.card-fold.folded .card-container:nth-child(even) .card {
+    -webkit-transform: rotateY(180deg);
+}
+
+.card-fold .card-container:nth-child(odd) .card {
+}
+*/
+
+
+/*
+.card-container.flipped .card{
+    -webkit-transform: rotateY(180deg);
+
+    -webkit-box-shadow: -10px 10px 15px #888; 
+}
+
+.card {
+    width: 320px;
+    height: 480px;
+    position: absolute;
+
+    -webkit-box-shadow: 10px 10px 15px #888;
+
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.75s ease-in-out;
+}
+*/
+
+.card .face {
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    width: 320px;
+    height: 480px;
+    background: yellow;
+}
+
+.card .back {
+    -webkit-transform: rotateY(180deg);
+    background: blue;
+}
+
