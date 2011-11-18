@@ -1,0 +1,79 @@
+.block {
+    border: 1px solid gray;
+    position: relative;
+}
+
+.basic {
+    margin: 5px;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    -webkit-transform: rotate(5deg);
+
+}
+
+.basic img {
+    display: block;
+    margin: 5px;
+}
+
+.activity {
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    width: 240px;
+    height: 300px;
+
+    -webkit-transform: rotate(-5deg);
+}
+
+.photos {
+    position: absolute;
+    top: 300px;
+    left: 30px;
+
+    -webkit-transform: rotate(-15deg);
+}
+
+.photos img.small {
+    width: 240px;
+    height: 180px;
+}
+.photos h2 {
+    margin: 0;
+}
+
+/*********/
+
+body {
+    -webkit-transition: 0.5s ease-in-out;
+}
+
+.focus-basic {
+    -webkit-transform: rotate(-5deg) scale(2.0, 2.0) translate(350px, 20px);
+}
+
+.focus-activity {
+    -webkit-transform: rotate(5deg) scale(2.0, 2.0) translate(210px, -140px);
+}
+
+.focus-photos {
+    -webkit-transform: rotate(15deg) scale(3.0, 3.0) translate(400px, -300px);
+}
+
+.back {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.focus-basic .back,
+.focus-activity .back,
+.focus-photos .back {
+    display: inline-block;
+    
+}
+
+
