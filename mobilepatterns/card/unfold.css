@@ -2,19 +2,25 @@
     position: absolute;
     top: 30px;
     left: 30px;
+    height: 640px;
 
-    -webkit-perspective: 1000;
+    -webkit-perspective: 1200;
 }
 
 .card-fold .roll {
     position: absolute;
     width: 320px;
     height: 480px;
+    z-index: 10;
+
+    -webkit-perspective: 1000;
+    -webkit-transform: translate3d(0, 0, 0);
 
     /*-webkit-transform-origin: left center;*/
     /*left: 640px;*/
-    z-index: 100;
-    background: black;
+    /*z-index: 100;*/
+    /*background: black;*/
+    border: 1px solid black;
 }
 
 .card-container {
@@ -27,7 +33,7 @@
     width: 320px;
     height: 480px;
 
-    -webkit-transform-origin: left center;
+    /*-webkit-transform-origin: left center;*/
 }
 
 /*
@@ -40,12 +46,13 @@
 */
 
 
-/*
 .card-container.flipped .card{
     -webkit-transform: rotateY(180deg);
 
-    -webkit-box-shadow: -10px 10px 15px #888; 
+    /*-webkit-box-shadow: -10px 10px 15px #888;*/
 }
+
+/*
 
 .card {
     width: 320px;
@@ -59,6 +66,10 @@
 }
 */
 
+.foldedcard .front {
+    display: none;
+}
+
 .card .face {
     -webkit-backface-visibility: hidden;
     position: absolute;
@@ -71,4 +82,20 @@
     -webkit-transform: rotateY(180deg);
     background: blue;
 }
+
+
+.card-1 {
+    position: absolute;
+    left: 0px;
+}
+.card-2 {
+    position: absolute;
+    left: 320px;
+}
+.card-3 {
+    position: absolute;
+    left: 640px;
+}
+
+
 

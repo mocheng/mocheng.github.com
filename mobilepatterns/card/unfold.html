@@ -15,6 +15,7 @@
 <div class="card-fold folded">
     <div class="roll">
     </div>
+
     <div class="card-container card-1">
         <div class="card">
             <div class="face front">
@@ -54,12 +55,12 @@ YUI({
     Y.all('.card-fold').on('flick', function(e) {
         var endTarget = e.target,
             distance = e.flick.distance;
-        //console.log(e);
-        //alert(e.currentTarget);
-        //alert(endTarget);
-        //alert(e.flick.distance);
 
         var ancestor = endTarget.ancestor('.card-fold');
+        if (!ancestor) {
+            return;
+        }
+
         /*
         if (ancestor &&
             (ancestor.hasClass('unfold') ^ distance > 0)) { // only toggle class if gesture match
@@ -69,59 +70,55 @@ YUI({
 
         //var cards = ancestor.all('.card-container').getDOMNodes();
         var cards = ancestor.all('.card-container');
+
         var roll = ancestor.one('.roll');
 
-        /*
-        function fold (cards, idx) {
-            roll.appendChild(cards.slice(idx));
-            //cards.slice(idx).transition({
-            roll.transition({
-                easing: 'ease-in-out',
-                duration: '0.5',
-                //'transform-origin' : 'right center',
-                //transform: 'rotateY(180deg) translateX(100%)'
-                //transform: 'rotateY(-180deg) translateX(100%)'
-                //transform: 'rotateY(-180deg)'
-                transform: 'rotateY(-180deg)'
-            }, function() {
-                if (idx > 1) {
-                    fold(cards, idx - 1);
-                }
-            });
-        }
-
-        fold(cards, cards.size()-1);
-        */
-
-        function rotate(idx) {
-            console.log('rotate: ' + idx);
+        function rotate(count, leap) {
+            leap = leap || 0;
+            console.log('rotate: ' + leap);
 
             var trans = '';
-            if (idx % 2 ) {
-                roll.setStyle('-webkit-transform-origin', 'right center');
-                trans = 'rotateY(180deg)';
-            } else {
+            if (leap % 2 ) {
                 roll.setStyle('-webkit-transform-origin', 'left center');
                 trans = 'rotateY(360deg)';
+            } else {
+                roll.setStyle('-webkit-transform-origin', 'right center');
+                trans = 'rotateY(180deg)';
+            }
+
+            //alert(cards.item(idx-1));
+            var currCard = cards.item(leap);
+
+            if (leap % 2) {
+                currCard.setStyle('-webkit-transform', 'rotateY(180deg)');
+            }
+
+            currCard.setStyle('left', 0);
+            //currCard.setStyle('z-index', (leap+1)*10);
+            if (leap > 0) {
+                currCard.addClass('foldedcard');
+            }
+            roll.prepend(currCard);
+            //roll.append(currCard);
+
+            if (leap >= count) {
+                return;
             }
 
             roll.transition({
                 easing: 'ease-in-out',
                 duration: '0.75',
-                //'transform-origin' : 'right center',
-                //transform: 'rotateY(180deg) translateX(100%)'
-                //transform: 'rotateY(-180deg) translateX(100%)'
-                //transform: 'rotateY(-180deg)'
                 transform: trans
             }, function() {
-               if (idx < 2) {
-                //alert(320 * (idx+1));
-                    roll.setStyle('left', 320 * (idx+1));
-                    rotate(idx + 1)
+                if (leap + 1 < count) {
+                    currCard.addClass('foldedcard');
+                    roll.setStyle('left', 320 * (leap+2));
+                    rotate(count, leap + 1)
                 }
             });
        }
-       rotate(1);
+
+       rotate(2);
 
     }, {
         minDistance: 15,
