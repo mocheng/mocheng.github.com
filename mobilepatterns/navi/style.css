@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .block {
     border: 1px solid gray;
     position: relative;
