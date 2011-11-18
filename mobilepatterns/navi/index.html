@@ -24,11 +24,11 @@
         <span class="back">Back</span>
         <h2>Activity</h2>
         <ul>
-            <li> Morgan is awake </li>
-            <li> Morgan is working</li>
-            <li> Morgan is eating</li>
-            <li> Morgan is playing</li>
-            <li> Morgan is asleep</li>
+            <li> Morgan<span class="detail"></span> is awake </li>
+            <li> Morgan<span class="detail"></span> is working</li>
+            <li> Morgan<span class="detail"></span> is eating</li>
+            <li> Morgan<span class="detail"></span> is playing</li>
+            <li> Morgan<span class="detail"></span> is asleep</li>
         </ul>
     </div>
 
@@ -40,7 +40,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-YUI().use('node', function(Y) {
+YUI().use('node', 'transition', function(Y) {
     Y.one('.basic').on('click', function() {
         Y.one('body').setAttribute('class', 'focus-basic');
     });
@@ -55,6 +55,20 @@ YUI().use('node', function(Y) {
         Y.one('body').setAttribute('class', ' ');
         e.halt();
     });
+
+    /*
+    Y.one('.activity').delegate('click', function(e) {
+        var body = Y.one('body');
+
+        if (body.hasClass('focus-activity')) {
+            Y.one('body').transition({
+                duration: 2.5,
+                transform: 'rotate(-85deg) scale(15, 15) translate(30px, -320px)'
+            }, function() {
+            })
+        }
+    }, 'ul li');
+    */
 
 });
 </script>
