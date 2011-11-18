@@ -46,6 +46,17 @@
             </div>
         </div>
     </div>
+    <div class="card-container card-4">
+        <div class="card">
+            <div class="face front">
+                <h1>Card 4 Front</h1>
+            </div>
+            <div class="face back">
+                <h1>Card 4 Back</h1>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript" charset="utf-8">
@@ -80,11 +91,13 @@ YUI({
             var trans = '';
             if (leap % 2 ) {
                 roll.setStyle('-webkit-transform-origin', 'left center');
-                trans = 'rotateY(360deg)';
+                //trans = 'rotateY(360deg)';
             } else {
                 roll.setStyle('-webkit-transform-origin', 'right center');
-                trans = 'rotateY(180deg)';
+                //trans = 'rotateY(180deg)';
             }
+
+            trans = 'rotateY(' + (180 * (leap+1)) + 'deg)';
 
             //alert(cards.item(idx-1));
             var currCard = cards.item(leap);
@@ -98,8 +111,7 @@ YUI({
             if (leap > 0) {
                 currCard.addClass('foldedcard');
             }
-            roll.prepend(currCard);
-            //roll.append(currCard);
+            roll.append(currCard);
 
             if (leap >= count) {
                 return;
@@ -107,18 +119,20 @@ YUI({
 
             roll.transition({
                 easing: 'ease-in-out',
-                duration: '0.75',
+                duration: '2.75',
                 transform: trans
             }, function() {
                 if (leap + 1 < count) {
                     currCard.addClass('foldedcard');
-                    roll.setStyle('left', 320 * (leap+2));
+                    if ( ! (leap % 2) ) {
+                        roll.setStyle('left', 320 * (leap+2));
+                    }
                     rotate(count, leap + 1)
                 }
             });
        }
 
-       rotate(2);
+       rotate(3);
 
     }, {
         minDistance: 15,
