@@ -11,15 +11,18 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     },
 
     renderUI: function() {
-        var list = this.cb.one('ul:first-child'), count;
+        //var list = this.list = this.cb.one('ul:first-child'), count;
+        var count;
 
-        if (!list) {
-            return;
-        }
+        this.pages = this.cb.get('children').filter('.page');
 
-        list.addClass('yui3-flipview-list');
+        this.pageWidth = parseInt(this.pages.item(0).getComputedStyle('width'));
+        this.pageHeight = parseInt(this.pages.item(0).getComputedStyle('height'));
+        this.cb.setStyles({
+            width: this.pageWidth,
+            height: this.pageHeight
+        });
 
-        this.pages = list.get('children');
         count = this.pages.size();
         this.pages.each(function(node, idx) {
             //node.setStyles({'z-index' : count - idx});
@@ -33,7 +36,7 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
 
     bindUI: function() {
         this.cb.on('flick', function(e) {
-            if (e.flick.distance > 0) {
+            if (e.flick.distance < 0) {
                 this.next();
             } else {
                 this.prev();
@@ -48,10 +51,61 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     },
 
     next: function() {
+        var oldPage, oldPageClone, newPage, newPageClone, shadowSamuri1, shadowSamuri2, that = this; 
+
         if (this.currPageIdx < this.pages.size() - 1) {
-            this.pages.item(this.currPageIdx).addClass('hidden');
-            this.currPageIdx ++;
-            this.pages.item(this.currPageIdx).removeClass('hidden');
+            oldPage = this.pages.item(this.currPageIdx);
+            newPage = this.pages.item(this.currPageIdx + 1);
+
+            // wrap original page
+            newPage.removeClass('hidden');
+            var oldPageWrapper = Y.Node.create('<div class="left-wrapper page"></div>').append(oldPage);
+            var newPageWrapper = Y.Node.create('<div class="right-wrapper page"></div>').append(newPage);
+            this.cb.append(oldPageWrapper);
+            this.cb.append(newPageWrapper);
+
+            oldPageClone = oldPage.cloneNode(true);
+            newPageClone = newPage.cloneNode(true);
+            //newPageClone.addClass('back').removeClass('hidden');
+            newPageClone.removeClass('hidden');
+
+            shadowSamuri1 = Y.Node.create('<div class="right-half page"></div>').append(oldPageClone);
+            shadowSamuri1.setStyles({
+                //position: 'absolute',
+                width: this.pageWidth / 2, //hack the offset?
+            });
+            shadowSamuri1.appendTo(this.cb);
+
+            shadowSamuri2 = Y.Node.create('<div class="left-half page"></div>').append(newPageClone);
+            shadowSamuri2.setStyles({
+                //position: 'absolute',
+                width: this.pageWidth / 2 , //hack the offset?
+            });
+            shadowSamuri2.appendTo(this.cb);
+
+            shadowSamuri1.transition({
+                duration: 2,
+                transform: 'rotateY(-180deg)'
+            }, function() {
+                that.currPageIdx ++;
+                oldPage.addClass('hidden');
+                newPage.removeClass('hidden');
+                //shadowSamuri1.remove();
+                
+                //that.pages.item(that.currPageIdx).removeClass('hidden');
+            });
+
+            shadowSamuri2.transition({
+                duration: 2,
+                transform: 'rotateY(0)'
+            }, function() {
+                that.currPageIdx ++;
+                oldPage.addClass('hidden');
+                newPage.removeClass('hidden');
+                //shadowSamuri2remove();
+                
+                //that.pages.item(that.currPageIdx).removeClass('hidden');
+            });
         } 
     },
 

@@ -12,15 +12,18 @@
         body {
             padding: 10px;
         }
-        li.card {
+        .page{
             display: block;
-            height: 480px;
+            height: 320px;
             width :320px;
-            float: left;
             border: 1px solid #bfbfbf;
 
-            padding: 30px;
+            /*padding: 30px;*/
             font-size: 30px;
+        }
+        .container {
+            margin: 10px auto;
+            width: 320px;
         }
     </style>
 
@@ -31,13 +34,13 @@
 </head>
 <body>
 
+<div class="container">
     <div id="flippable" class="yui3-flipview-loading">
-        <ul>
-            <li class="card">Hello world</li>
-            <li class="card">Fight club</li>
-            <li class="card">Long live the king</li>
-        </ul> 
+        <div class="page">Hello world?! All work without play makes Jack doll!</div>
+        <div class="page">He who is abandoned will be abandoner</div>
+        <div class="page">The king is dead. Long live the king.</div>
     </div>
+</div>
 
 
 <script type="text/javascript" charset="utf-8">
