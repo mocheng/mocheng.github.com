@@ -1,0 +1,16 @@
+.yui3-js-enabled .yui3-flipview-loading {
+    visibility: hidden;
+}
+
+.yui3-flipview-content {
+    position: relative;
+}
+
+.yui3-flipview-content .hidden {
+    display: none;
+}
+
+.yui3-flipview-list > li {
+    position: absolute;
+    background: #FFF;
+}

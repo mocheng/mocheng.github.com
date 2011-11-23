@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('node', 'transition', function(Y) {
+    Y.one('.basic').on('click', function() {
+        Y.one('body').setAttribute('class', 'focus-basic');
+    });
+    Y.one('.activity').on('click', function() {
+        Y.one('body').setAttribute('class', 'focus-activity');
+    });
+    Y.one('.photos').on('click', function() {
+        Y.one('body').setAttribute('class', 'focus-photos');
+    });
+
+    Y.all('.back').on('click', function(e) {
+        Y.one('body').setAttribute('class', ' ');
+        e.halt();
+    });
+
+    /*
+    Y.one('.activity').delegate('click', function(e) {
+        var body = Y.one('body');
+
+        if (body.hasClass('focus-activity')) {
+            Y.one('body').transition({
+                duration: 2.5,
+                transform: 'rotate(-85deg) scale(15, 15) translate(30px, -320px)'
+            }, function() {
+            })
+        }
+    }, 'ul li');
+    */
+
+});
+</script>
+
+</body>
+</html>
