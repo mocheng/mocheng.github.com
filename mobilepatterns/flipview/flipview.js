@@ -51,8 +51,8 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     },
 
     next: function() {
-        var oldPage, oldPageClone,
-            newPage, newPageClone,
+        var oldPage, oldPageClone, oldPageClipper,
+            newPage, newPageClone, newPageClipper,
             oldShadowSamuri, newShadowSamuri,
             that = this;
 
@@ -63,28 +63,44 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
         oldPage = this.pages.item(this.currPageIdx);
         newPage = this.pages.item(this.currPageIdx + 1);
 
-        // wrap original page
         newPage.removeClass('hidden');
-        var oldPageWrapper = Y.Node.create('<div class="left-wrapper page"></div>').append(oldPage);
-        var newPageWrapper = Y.Node.create('<div class="right-wrapper page"></div>').append(newPage);
-        this.cb.append(oldPageWrapper);
-        this.cb.append(newPageWrapper);
 
+        // clipper original page to show only half
+        oldPageClipper = Y.Node.create('<div class="left-clipper page"></div>').append(oldPage);
+        newPageClipper = Y.Node.create('<div class="right-clipper page"></div>').append(newPage);
+        this.cb.append(oldPageClipper);
+        this.cb.append(newPageClipper);
+
+        // cloned page is to show flipping effect
         oldPageClone = oldPage.cloneNode(true);
         newPageClone = newPage.cloneNode(true);
-        //newPageClone.addClass('back').removeClass('hidden');
         newPageClone.removeClass('hidden');
+
+        /*
+        newPageClone.addClass('flipped');
+
+        var flip = Y.Node.create('<div class="flip page"></div>');
+
+        oldPageClone.appendTo(flip);
+        newPageClone.appendTo(flip);
+        flip.appendTo(this.cb);
+
+        flip.transition({
+            duration: 2,
+            transform: 'rotateY(-180deg)'
+        }, function() {
+
+        });
+        */
 
         oldShadowSamuri = Y.Node.create('<div class="right-half page"></div>').append(oldPageClone);
         oldShadowSamuri.setStyles({
-            //position: 'absolute',
             width: this.pageWidth / 2, //hack the offset?
         });
         oldShadowSamuri.appendTo(this.cb);
 
         newShadowSamuri = Y.Node.create('<div class="left-half page"></div>').append(newPageClone);
         newShadowSamuri.setStyles({
-            //position: 'absolute',
             width: this.pageWidth / 2 , //hack the offset?
         });
         newShadowSamuri.appendTo(this.cb);
@@ -93,12 +109,6 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
             duration: 2,
             transform: 'rotateY(-180deg)'
         }, function() {
-            //that.currPageIdx ++;
-            //oldPage.addClass('hidden');
-            //newPage.removeClass('hidden');
-            //oldShadowSamuri.remove();
-            
-            //that.pages.item(that.currPageIdx).removeClass('hidden');
         });
 
         newShadowSamuri.transition({
@@ -107,18 +117,6 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
         }, function() {
             //TODO: this should be done when oldShadowSamuri transition is done as well.
             that.currPageIdx ++;
-            /*
-            oldPage.addClass('hidden');
-            newPage.removeClass('hidden');
-            */
-
-            //oldPageWrapper.remove();
-            //newPageWrapper.remove();
-            //that.cb.append(newPage);
-
-            //newShadowSamuriremove();
-            
-            //that.pages.item(that.currPageIdx).removeClass('hidden');
         });
     },
 

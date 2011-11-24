@@ -71,36 +71,37 @@
     float: right;
 }
 
-/*
-.right-half .back {
-    -webkit-transform: rotateY(180deg);
-}
-*/
-
-.left-half .page {
-}
-
-.left-wrapper {
+.left-clipper {
     overflow: hidden;
     width: 50%;
     left: 0;
 }
 
-.right-wrapper {
+.right-clipper {
     overflow: hidden;
     width: 50%;
     right: 0;
 }
 
-.right-wrapper .page{
+.right-clipper .page{
     float: right;
 }
 
 .left-half.page,
 .right-half.page,
-.left-wrapper.page,
+.left-clipper.page,
 .right-wrapper.page {
     border: 0;
 }
+
+/*
+.flipped {
+    -webkit-transform: rotateY(180deg);
+}
+
+.flip .page{
+    overflow: hidden;
+}
+*/
 
 
