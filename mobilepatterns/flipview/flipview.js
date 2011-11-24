@@ -134,7 +134,7 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     NAME: 'flipview',
     ATTRS: {
         flipDuration: {
-            value:  0.75
+            value:  1.75
         }
     }
 });
