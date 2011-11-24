@@ -62,8 +62,12 @@
     width: 50%;
     overflow: hidden;
     -webkit-transform-origin: left center;
+}
 
-    /*border-right: 1px solid #bfbfbf;*/
+.yui3-flipview-content .right-flip.to-left {
+    -webkit-transform: left center;
+    -webkit-transform: rotateY(-180deg);
+    border: 1pxp solid red;
 }
 
 .yui3-flipview-content .left-flip {
@@ -79,6 +83,11 @@
     -webkit-transform: rotateY(180deg);
     left: -1px;
     top: -1px;
+}
+
+.yui3-flipview-content .left-flip.to-left {
+    -webkit-transform-origin: right center;
+    -webkit-transform: rotateY(-0deg);
 }
 
 .yui3-flipview-content .left-clipper {
