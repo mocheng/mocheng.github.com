@@ -53,12 +53,14 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     next: function() {
         var oldPage, oldPageClone, oldPageClipper,
             newPage, newPageClone, newPageClipper,
-            oldShadowSamuri, newShadowSamuri,
+            oldFlip, newFlip,
             that = this;
 
         if ( (this.currPageIdx >= this.pages.size() - 1) || this.flipping ) {
             return;
         }
+
+        this.flipping = true;
 
         oldPage = this.pages.item(this.currPageIdx);
         newPage = this.pages.item(this.currPageIdx + 1);
@@ -76,47 +78,44 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
         newPageClone = newPage.cloneNode(true);
         newPageClone.removeClass('hidden');
 
-        /*
-        newPageClone.addClass('flipped');
-
-        var flip = Y.Node.create('<div class="flip page"></div>');
-
-        oldPageClone.appendTo(flip);
-        newPageClone.appendTo(flip);
-        flip.appendTo(this.cb);
-
-        flip.transition({
-            duration: 2,
-            transform: 'rotateY(-180deg)'
-        }, function() {
-
+        oldFlip = Y.Node.create('<div class="right-flip page"></div>').append(oldPageClone);
+        oldFlip.setStyles({
+            width: this.pageWidth / 2
         });
-        */
+        oldFlip.appendTo(this.cb);
 
-        oldShadowSamuri = Y.Node.create('<div class="right-half page"></div>').append(oldPageClone);
-        oldShadowSamuri.setStyles({
-            width: this.pageWidth / 2, //hack the offset?
+        newFlip = Y.Node.create('<div class="left-flip page"></div>').append(newPageClone);
+        newFlip.setStyles({
+            width: this.pageWidth / 2
         });
-        oldShadowSamuri.appendTo(this.cb);
+        newFlip.appendTo(this.cb);
 
-        newShadowSamuri = Y.Node.create('<div class="left-half page"></div>').append(newPageClone);
-        newShadowSamuri.setStyles({
-            width: this.pageWidth / 2 , //hack the offset?
-        });
-        newShadowSamuri.appendTo(this.cb);
-
-        oldShadowSamuri.transition({
-            duration: 2,
+        oldFlip.transition({
+            easing: 'ease-in-out',
+            duration: this.get('flipDuration'),
             transform: 'rotateY(-180deg)'
         }, function() {
         });
 
-        newShadowSamuri.transition({
-            duration: 2,
+        newFlip.transition({
+            easing: 'ease-in-out',
+            duration: this.get('flipDuration'),
             transform: 'rotateY(0)'
         }, function() {
-            //TODO: this should be done when oldShadowSamuri transition is done as well.
+            // Ideally this should be sync with oldFlip transition.
             that.currPageIdx ++;
+
+            /*
+            oldPage.addClass('hidden');
+            newPage.appendTo(that.cb);
+            oldPage.appendTo(that.cb);
+            oldPageClipper.empty();
+            newPageClipper.empty();
+            oldFlip.empty();
+            newFlip.empty();
+            */
+
+            that.flipping = false;
         });
     },
 
@@ -131,6 +130,9 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
 {
     NAME: 'flipview',
     ATTRS: {
+        flipDuration: {
+            value: 2
+        }
     }
 });
 

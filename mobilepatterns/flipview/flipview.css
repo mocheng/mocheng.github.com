@@ -40,25 +40,26 @@
     backface-visibility: hidden;
 }
 
-.yui3-flipview-content .right-half {
+.yui3-flipview-content .right-flip {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     right: 0;
 
-    /*width: 50%;*/
+    width: 50%;
     overflow: hidden;
     -webkit-transform-origin: left center;
 }
 
-.yui3-flipview-content .left-half {
+.yui3-flipview-content .left-flip {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
+    border: none;
 
     /*width: 50%;*/
     overflow: hidden;
@@ -67,7 +68,7 @@
     left: 0;
 }
 
-.right-half .page {
+.right-flip .page {
     float: right;
 }
 
@@ -87,21 +88,11 @@
     float: right;
 }
 
-.left-half.page,
-.right-half.page,
-.left-clipper.page,
-.right-wrapper.page {
-    border: 0;
+.left-flip,
+.right-flip,
+.left-clipper,
+.right-clipper{
+    border: none;
 }
-
-/*
-.flipped {
-    -webkit-transform: rotateY(180deg);
-}
-
-.flip .page{
-    overflow: hidden;
-}
-*/
 
 
