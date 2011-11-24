@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <style type="text/css" media="screen">
+        body {
+            padding: 10px;
+        }
+        .page{
+            display: block;
+            height: 480px;
+            width : 960px;
+            /*border: 1px solid #bfbfbf;*/
+
+            font-size: 30px;
+        }
+        .container {
+            margin: 30px auto;
+            width: 960px;
+        }
+
+        .block {
+            /*margin: 5px;*/
+            padding: 5px;
+        }
+        .row-1-1, .row-1-2, .row-1-3, .row-2-3 {
+            border: 1px solid #bfbfbf;
+            margin: 5px;
+        }
+
+        .row-1-1 {
+            height: 470px;
+        }
+        .row-1-2 {
+            height: 230px;
+        }
+        .row-1-3 {
+            height: 150px;
+        }
+        .row-2-3 {
+            height: 310px;
+        }
+
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
+    <link rel="stylesheet" href="flipview.css" type="text/css" media="screen" charset="utf-8">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script src="flipview.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="container">
+    <div id="flippable" class="yui3-flipview-loading">
+        <div class="page yui3-g">
+            <div class="yui3-u-1-3">
+                <div class="row-1-3"><div class="block">This is a demo of flip view</div></div>
+                <div class="row-2-3"><div class="block">You'd better try this in iPad. Swipe me to flip pages.</div></div>
+            </div>
+            <div class="yui3-u-1-3">
+                <div class="row-1-1">
+                    <div class="block">Look at me. I'm a middle element and the flip view can 'split' me.</div>
+                </div>
+            </div>
+            <div class="yui3-u-1-3">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+        </div>
+        <div class="page yui3-g">
+            <div class="yui3-u-1-2">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+            <div class="yui3-u-1-2">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+        </div>
+        <div class="page yui3-g">
+            <div class="yui3-u-1-3">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+            <div class="yui3-u-1-3">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+            <div class="yui3-u-1-3">
+                <div class="row-1-2">
+                    Hello world
+                </div>
+                <div class="row-1-2">
+                    All work without play makes jack a dull boy
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('flipview', function(Y) {
+    new Y.FlipView({
+        srcNode: '#flippable'
+    }).render();
+});
+</script>
+
+</body>
+</html>
