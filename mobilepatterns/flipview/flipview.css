@@ -96,4 +96,11 @@
     float: right;
 }
 
+.left-half.page,
+.right-half.page,
+.left-wrapper.page,
+.right-wrapper.page {
+    border: 0;
+}
+
 

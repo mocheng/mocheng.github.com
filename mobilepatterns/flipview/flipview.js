@@ -51,62 +51,75 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     },
 
     next: function() {
-        var oldPage, oldPageClone, newPage, newPageClone, shadowSamuri1, shadowSamuri2, that = this; 
+        var oldPage, oldPageClone,
+            newPage, newPageClone,
+            oldShadowSamuri, newShadowSamuri,
+            that = this;
 
-        if (this.currPageIdx < this.pages.size() - 1) {
-            oldPage = this.pages.item(this.currPageIdx);
-            newPage = this.pages.item(this.currPageIdx + 1);
+        if ( (this.currPageIdx >= this.pages.size() - 1) || this.flipping ) {
+            return;
+        }
 
-            // wrap original page
+        oldPage = this.pages.item(this.currPageIdx);
+        newPage = this.pages.item(this.currPageIdx + 1);
+
+        // wrap original page
+        newPage.removeClass('hidden');
+        var oldPageWrapper = Y.Node.create('<div class="left-wrapper page"></div>').append(oldPage);
+        var newPageWrapper = Y.Node.create('<div class="right-wrapper page"></div>').append(newPage);
+        this.cb.append(oldPageWrapper);
+        this.cb.append(newPageWrapper);
+
+        oldPageClone = oldPage.cloneNode(true);
+        newPageClone = newPage.cloneNode(true);
+        //newPageClone.addClass('back').removeClass('hidden');
+        newPageClone.removeClass('hidden');
+
+        oldShadowSamuri = Y.Node.create('<div class="right-half page"></div>').append(oldPageClone);
+        oldShadowSamuri.setStyles({
+            //position: 'absolute',
+            width: this.pageWidth / 2, //hack the offset?
+        });
+        oldShadowSamuri.appendTo(this.cb);
+
+        newShadowSamuri = Y.Node.create('<div class="left-half page"></div>').append(newPageClone);
+        newShadowSamuri.setStyles({
+            //position: 'absolute',
+            width: this.pageWidth / 2 , //hack the offset?
+        });
+        newShadowSamuri.appendTo(this.cb);
+
+        oldShadowSamuri.transition({
+            duration: 2,
+            transform: 'rotateY(-180deg)'
+        }, function() {
+            //that.currPageIdx ++;
+            //oldPage.addClass('hidden');
+            //newPage.removeClass('hidden');
+            //oldShadowSamuri.remove();
+            
+            //that.pages.item(that.currPageIdx).removeClass('hidden');
+        });
+
+        newShadowSamuri.transition({
+            duration: 2,
+            transform: 'rotateY(0)'
+        }, function() {
+            //TODO: this should be done when oldShadowSamuri transition is done as well.
+            that.currPageIdx ++;
+            /*
+            oldPage.addClass('hidden');
             newPage.removeClass('hidden');
-            var oldPageWrapper = Y.Node.create('<div class="left-wrapper page"></div>').append(oldPage);
-            var newPageWrapper = Y.Node.create('<div class="right-wrapper page"></div>').append(newPage);
-            this.cb.append(oldPageWrapper);
-            this.cb.append(newPageWrapper);
+            */
 
-            oldPageClone = oldPage.cloneNode(true);
-            newPageClone = newPage.cloneNode(true);
-            //newPageClone.addClass('back').removeClass('hidden');
-            newPageClone.removeClass('hidden');
+            //oldPageWrapper.remove();
+            //newPageWrapper.remove();
+            //that.cb.append(newPage);
 
-            shadowSamuri1 = Y.Node.create('<div class="right-half page"></div>').append(oldPageClone);
-            shadowSamuri1.setStyles({
-                //position: 'absolute',
-                width: this.pageWidth / 2, //hack the offset?
-            });
-            shadowSamuri1.appendTo(this.cb);
-
-            shadowSamuri2 = Y.Node.create('<div class="left-half page"></div>').append(newPageClone);
-            shadowSamuri2.setStyles({
-                //position: 'absolute',
-                width: this.pageWidth / 2 , //hack the offset?
-            });
-            shadowSamuri2.appendTo(this.cb);
-
-            shadowSamuri1.transition({
-                duration: 2,
-                transform: 'rotateY(-180deg)'
-            }, function() {
-                that.currPageIdx ++;
-                oldPage.addClass('hidden');
-                newPage.removeClass('hidden');
-                //shadowSamuri1.remove();
-                
-                //that.pages.item(that.currPageIdx).removeClass('hidden');
-            });
-
-            shadowSamuri2.transition({
-                duration: 2,
-                transform: 'rotateY(0)'
-            }, function() {
-                that.currPageIdx ++;
-                oldPage.addClass('hidden');
-                newPage.removeClass('hidden');
-                //shadowSamuri2remove();
-                
-                //that.pages.item(that.currPageIdx).removeClass('hidden');
-            });
-        } 
+            //newShadowSamuriremove();
+            
+            //that.pages.item(that.currPageIdx).removeClass('hidden');
+        });
     },
 
     prev: function() {
