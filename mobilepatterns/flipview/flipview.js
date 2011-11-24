@@ -70,6 +70,7 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
         // clipper original page to show only half
         oldPageClipper = Y.Node.create('<div class="left-clipper page"></div>').append(oldPage);
         newPageClipper = Y.Node.create('<div class="right-clipper page"></div>').append(newPage);
+        newPage.setStyles({'margin-left' : - this.pageWidth/2});
         this.cb.append(oldPageClipper);
         this.cb.append(newPageClipper);
 
@@ -77,6 +78,9 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
         oldPageClone = oldPage.cloneNode(true);
         newPageClone = newPage.cloneNode(true);
         newPageClone.removeClass('hidden');
+
+        oldPageClone.setStyles({'margin-left' : -this.pageWidth / 2});
+        newPageClone.setStyles({'margin-left' : 0});
 
         oldFlip = Y.Node.create('<div class="right-flip page"></div>').append(oldPageClone);
         oldFlip.setStyles({
@@ -105,15 +109,14 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
             // Ideally this should be sync with oldFlip transition.
             that.currPageIdx ++;
 
-            /*
+            newPage.setStyles({'margin-left': 0});
             oldPage.addClass('hidden');
             newPage.appendTo(that.cb);
             oldPage.appendTo(that.cb);
-            oldPageClipper.empty();
-            newPageClipper.empty();
-            oldFlip.empty();
-            newFlip.empty();
-            */
+            oldPageClipper.remove();
+            newPageClipper.remove();
+            oldFlip.remove();
+            newFlip.remove();
 
             that.flipping = false;
         });
@@ -131,7 +134,7 @@ Y.FlipView = Y.Base.create('flipview', Y.Widget, [],
     NAME: 'flipview',
     ATTRS: {
         flipDuration: {
-            value: 2
+            value:  0.75
         }
     }
 });

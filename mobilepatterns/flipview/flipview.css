@@ -6,6 +6,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    border: 1px solid #bfbfbf;
 }
 
 .yui3-flipview-content .hidden {
@@ -35,9 +36,18 @@
     position: absolute;
     background: #FFF;
 
+    border: none;
+
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+.yui3-flipview-content .left-flip,
+.yui3-flipview-content .right-flip,
+.yui3-flipview-content .left-clipper,
+.yui3-flipview-content .right-clipper{
+    border: none;
 }
 
 .yui3-flipview-content .right-flip {
@@ -45,12 +55,16 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    /*border: 1px solid red;*/
-    right: 0;
+    border: 1px solid #BFBFBF;
+    border-left: none;
+    top: -1px;
 
+    right: 0;
     width: 50%;
     overflow: hidden;
     -webkit-transform-origin: left center;
+
+    /*border-right: 1px solid #bfbfbf;*/
 }
 
 .yui3-flipview-content .left-flip {
@@ -58,41 +72,25 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    /*border: 1px solid blue;*/
-    border: none;
+    border: 1px solid #BFBFBF;
+    border-right: none;
 
-    /*width: 50%;*/
     overflow: hidden;
     -webkit-transform-origin: right center;
     -webkit-transform: rotateY(180deg);
     left: 0;
+    top: -1px;
 }
 
-.right-flip .page {
-    float: right;
-}
-
-.left-clipper {
+.yui3-flipview-content .left-clipper {
     overflow: hidden;
     width: 50%;
     left: 0;
 }
 
-.right-clipper {
+.yui3-flipview-content .right-clipper {
     overflow: hidden;
     width: 50%;
     right: 0;
 }
-
-.right-clipper .page{
-    float: right;
-}
-
-.left-flip,
-.right-flip,
-.left-clipper,
-.right-clipper{
-    border: none;
-}
-
 
