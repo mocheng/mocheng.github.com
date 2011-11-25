@@ -4,6 +4,13 @@
 
 .yui3-album-content {
     position: relative;
+    -webkit-perspective: 200;
 }
+
+.yui3-album-content .hidden {
+    display: none;
+}
+
+
 
 

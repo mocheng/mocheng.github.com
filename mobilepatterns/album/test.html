@@ -13,8 +13,7 @@
     padding: 10px;
 }
 
-.album-card {
-    float: left;
+.card {
     border: 1px solid #bfbfbf;
     width: 150px;
     height: 200px;
@@ -23,11 +22,31 @@
     -moz-border-radius: 15px;
     border-radius: 15px;
 
+    background: #FFF;
+
+    -webkit-perspective: 3000;
+
+    /*-webkit-backface-visibility: hidden;*/
+}
+
+.card-fold {
+    float: left;
+
     -moz-box-shadow: 3px 3px 5px #888;
     -webkit-box-shadow: 3px 3px 5px #888;
     box-shadow: 3px 3px 5px #888;
+}
 
-    background: #FFF;
+.single-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.single-card span{
+    display: block;
+    margin: 20px;
+    font-size: 20px;
 }
 
     </style>
@@ -41,55 +60,67 @@
 
 <div class="container">
     <div id="album" class="yui3-album-loading">
-        <div class="album-card">
-            <h1>101</h1>
-            <span>Family</span>
-            <div>
+        <div class="card card-fold">
+            <div class="single-card card">
+                <h1>101</h1>
+                <span>Family</span>
+                <div>
+                </div>
+            </div>
+
+            <div class="single-card hidden card">
+                <span>1 Hello world</span>
+            </div>
+            <div class="single-card hidden card">
+                <span>2 JavaScript is dead</span>
+            </div>
+            <div class="single-card hidden card">
+                <span>3 Long live JavaScript</span>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>201</h1>
             <span>Friends</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>301</h1>
             <span>Screenshots</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>401</h1>
             <span>Family</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>501</h1>
             <span>Friends</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>601</h1>
             <span>Screenshots</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>701</h1>
             <span>Family</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>801</h1>
             <span>Friends</span>
             <div>
             </div>
         </div>
-        <div class="album-card">
+        <div class="card card-fold">
             <h1>901</h1>
             <span>Screenshots</span>
             <div>
