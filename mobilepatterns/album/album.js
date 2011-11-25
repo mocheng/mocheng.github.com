@@ -1,41 +1,30 @@
 YUI.add('album', function(Y) {
 
-var CARD_FOLDED_DISTANCE = 145,
-    CARD_UNFOLDED_DISTANCE = 335,
-    FLICK_MIN_DISTANCE = 15;
+var FLICK_MIN_DISTANCE = 15;
 
 Y.Album = Y.Base.create('album', Y.Widget, [],
 {
     initializer: function() {
+        this.cb = this.get('contentBox');
     },
 
     destructor: function() {
     },
 
     renderUI: function() {
-        var cards, contentBox, nodeCount, offsetX = 0;
-
         this.fold();
-
-        //contentBox.set('innerHTML', 'hello world');
     },
 
     bindUI: function() {
-        var contentBox = this.get('contentBox');
-
-        contentBox.on('flick', function(e) {
+        this.cb.on('flick', function(e) {
             var offsetX = 0,
                 endTarget = e.target,
                 distance = e.flick.distance;
 
-            console.log(this.folded);
-            console.log(distance);
             if (this.folded && distance > 0) {
-                console.log('unfold');
                 this.unfold();
             }
             if (!this.folded && distance < 0) {
-                console.log('fold');
                 this.fold();
             }
         }, {
@@ -65,10 +54,8 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
                 'z-index': nodeCount - idx,
             });
 
-            console.log(unfold);
-            offsetX += unfold ? CARD_UNFOLDED_DISTANCE : CARD_FOLDED_DISTANCE;
-            console.log(offsetX);
-        });
+            offsetX += unfold ? this.get('unfoldedDistance') : this.get('foldedDistance');
+        }, this);
 
         this.folded = !unfold;
     }
@@ -77,6 +64,12 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
 {
     NAME: 'album',
     ATTRS: {
+        unfoldedDistance: {
+            value: 160
+        },
+        foldedDistance: {
+            value: 50
+        }
     }
 });
 
