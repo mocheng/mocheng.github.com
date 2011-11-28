@@ -1,0 +1,16 @@
+.yui3-js-enabled .yui3-album-loading {
+    display: none;
+}
+
+.yui3-album-content {
+    position: relative;
+    -webkit-perspective: 200;
+}
+
+.yui3-album-content .hidden {
+    display: none;
+}
+
+
+
+
