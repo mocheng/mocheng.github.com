@@ -49,6 +49,130 @@
     font-size: 20px;
 }
 
+/************/
+
+@-webkit-keyframes unfold-cover {
+    0% {
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(0deg);
+    }
+    50% {
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(180deg);
+        opacity: 0;
+    }
+    50.1% {
+        opacity: 0;
+        /*
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(180deg) translate(-200%);
+        */
+    }
+    100% {
+        opacity: 0;
+        /*
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(360deg) translate(200%);
+        */
+    }
+}
+
+@-webkit-keyframes unfold-card3 {
+    0% {
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(180deg) translate(100%);
+    }
+    50% {
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(360deg) translate(100%);
+    }
+    50.1% {
+        display: block;
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(360deg) translate(100%);
+    }
+    100% {
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(360deg) translate(100%);
+    }
+}
+
+@-webkit-keyframes unfold-card4 {
+    0% {
+        opacity : 0;
+        /*
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(0deg);
+        */
+    }
+    50% {
+        opacity : 0;
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(180deg);
+    }
+    50.1% {
+        opacity : 1;
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(180deg) translate(-200%);
+    }
+    100% {
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(360deg) translate(200%);
+    }
+}
+
+
+.unfolded .single-card:nth-child(1) {
+    z-index: 10;
+    -webkit-animation: unfold-cover 4s ease-out;
+    -webkit-transform: rotateY(360deg) translate(200%);
+}
+
+.unfolded .single-card:nth-child(2) {
+    display: block;
+    z-index: 2;
+}
+
+.single-card:nth-child(3) {
+    -webkit-transform: rotateY(360deg) translate(100%);
+    -webkit-transform-origin: left center;
+}
+
+.unfolded .single-card:nth-child(3) {
+    display: block;
+    z-index: 3;
+    -webkit-animation: unfold-card3 4s ease-out;
+}
+
+.unfolded .single-card:nth-child(4) {
+    display: block;
+    z-index: 10;
+    -webkit-animation: unfold-card4 4s ease-out;
+    -webkit-transform: rotateY(360deg) translate(200%);
+}
+
+/*
+.single-card {
+    -webkit-backface-visibility: hidden;
+}
+*/
+
+.single-card:before {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: ' ';
+    z-index: 0;
+    -webkit-transform: rotateY(180deg);
+    -webkit-backface-visibility: hidden;
+    background: #bfbfbf;
+
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+
     </style>
 
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">

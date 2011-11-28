@@ -60,12 +60,17 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
 
         var cards = cardFold.all('.single-card');
 
-        this.rotate(cards);
+        //this._rotate(cards);
+        this.rotate(cardFold);
 
         cardFold.setData('folding', false);
     },
 
-    rotate: function(cards) {
+    rotate: function(cardFold) {
+        cardFold.addClass('unfolded');
+    },
+
+    _rotate: function(cards) {
         var coverCard = cards.item(0),
             card1 = cards.item(1),
             card2 = cards.item(2),
