@@ -70,66 +70,6 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
         cardFold.addClass('unfolded');
     },
 
-    _rotate: function(cards) {
-        var coverCard = cards.item(0),
-            card1 = cards.item(1),
-            card2 = cards.item(2),
-            card3 = cards.item(3),
-            duration = this.get('unfoldDuration'),
-            that = this;
-
-        if (!card1) {
-            return;
-        }
-
-        coverCard.setStyles({
-            '-webkit-transform-origin' : 'right center',
-            'z-index': 4
-        });
-
-        card1.removeClass('hidden');
-
-        coverCard.transition({
-            duration: duration,
-            easing: 'ease-in-out',
-            'transform': 'rotateY(180deg)',
-        }, function() {
-
-            // continus to flip
-            card2.setStyles({
-                left: that.cardWidth
-            }).removeClass('hidden');
-
-            coverCard.setStyles({
-                '-webkit-transform-origin' : 'left center',
-                '-webkit-transform' : 'rotateY(180deg)',
-                'left' : 2 * that.cardWidth,
-                'z-index': 4
-            }).transition({
-                easing: 'ease-in-out',
-                'transform' : 'rotateY(360deg)',
-                duration: duration
-            });
-
-            card3.setStyles({
-                '-webkit-transform-origin' : 'left center',
-                '-webkit-transform' : 'rotateY(180deg)',
-                'left' : 2 * that.cardWidth,
-                'z-index': 4
-            }).removeClass('hidden').transition({
-                easing: 'ease-in-out',
-                'transform' : 'rotateY(360deg)',
-                duration: duration
-            }, function() {
-                 
-            });
-
-        });
-
-        cards.each(function(card, idx) {
-        }, this);
-    },
-
     expand: function() {
         this.collapse(true);
     },
