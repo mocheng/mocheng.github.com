@@ -1,0 +1,46 @@
+body {
+    /*
+    height: 750px;
+    width: 1024px;
+    */
+    overflow: hidden;
+    background-image: url(slices/user_profile_BG.png);
+}
+
+.yui3-carousel {
+    margin: 0 auto;
+    padding: 50px 0 0 0;
+}
+
+.profile .yui3-carousel-block {
+    width: 300px;
+    height: 400px;
+
+    border: 1px solid #bfbfbf;
+}
+
+.yui3-carousel-content > ul > li:nth-child(1) div {
+    background: red;
+}
+
+.yui3-carousel-content > ul > li:nth-child(2) div {
+    background: green;
+}
+
+.yui3-carousel-content > ul > li:nth-child(3) div {
+    background: gray;
+}
+
+.yui3-carousel-content > ul > li:nth-child(4) div {
+    background: purple;
+}
+
+.yui3-carousel-content > ul > li:nth-child(5) div {
+    background: blue;
+}
+
+.yui3-carousel-content > ul > li:nth-child(6) div {
+    background: white;
+}
+
+
