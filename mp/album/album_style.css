@@ -1,0 +1,111 @@
+body {
+    height: 750px;
+    /*width: 1024px;*/
+    overflow: hidden;
+    background:url(slices/ImageCard-background.png) no-repeat;
+}
+
+#album {
+    margin-top: 15px;
+}
+
+.card-mock,
+.card {
+    border: 0px solid rgba(1,1,1,0.5);
+    width: 337px;
+    height: 569px;
+    text-align: center;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+
+   /* background: #FFF;*/
+
+    -webkit-perspective: 3000;
+}
+
+.card-fold {
+    float: left;
+
+    /*-moz-box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 20px 20px  rgba(0,0,0,0.4);*/
+}
+
+.cover img{
+    -webkit-user-select: none;
+    -moz-box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.4);
+    box-shadow: 0px 0px 20px 20px  rgba(0,0,0,0.4);
+    -webkit-border-radius: 7px;
+}
+
+.inner img{
+    -webkit-user-select: none;
+}
+
+.head1 {
+    height: 150px;
+    position: relative;
+    color: #fff;
+    font-family: "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    text-align: left;
+    top: -560px;
+    left: 335px;
+    -webkit-transform-origin: left top;
+    -webkit-transform: rotate(90deg);
+}
+
+.head2 {
+    color: rgba(255,255,255,0.64);
+    font-size: 55px;
+    font-family: "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    width: 325px;
+    text-align: right;
+    position: relative;
+    top: -165px;
+    -webkit-transform-origin: right top;
+    -webkit-transform: rotate(90deg);
+}
+
+.fold-background {
+    position: absolute;
+    top: -31px;
+    left: -10px;
+    z-index: 0;
+    width: 1024px;
+    height: 631px;
+    background: url(slices/photos_background.png) no-repeat;
+    display: none;
+}
+
+.flicker {
+    position: absolute;
+    top: 617px;
+    left: 370px;
+    width: 280px;
+    height: 20px;
+    background: rgba(255,255,255,0.5);
+    display: none;
+    -webkit-border-radius: 10px;
+}
+
+.flicker-bar {
+    width: 30px;
+    height: 20px;
+    background: #fff;
+    -webkit-border-radius: 10px;
+}
+
+.inner {
+    width: 337px;
+    height: 569px;
+    background: none;
+}
+
+.slice {
+    position: absolute;
+    background: #ccc;
+}

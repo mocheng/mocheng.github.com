@@ -1,0 +1,45 @@
+.card-container {
+    -webkit-perspective: 1000;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 320px;
+    height: 480px;
+}
+
+.card-container .card{
+    border: 1px solid gray;
+    -webkit-box-shadow: 10px 10px 15px #888;
+}
+
+.card-container.flipped .card{
+    -webkit-transform: rotateY(180deg) translateX(100%);
+
+    -webkit-box-shadow: -10px 10px 15px #888; /* make sure the shadow is not reverse after flipped */
+}
+
+.card {
+    width: 320px;
+    height: 480px;
+    position: absolute;
+
+    /*-webkit-perspective: 1000;*/
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.75s ease-in-out;
+
+    -webkit-transform-origin: right center;
+}
+
+.card .face {
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    width: 320px;
+    height: 480px;
+    background: yellow;
+}
+
+.card .back {
+    -webkit-transform: rotateY(180deg);
+    background: blue;
+}
+

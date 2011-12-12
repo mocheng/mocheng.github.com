@@ -1,0 +1,41 @@
+.card-container {
+    -webkit-perspective: 1000;
+
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 320px;
+    height: 480px;
+}
+
+.card-container.flipped .card{
+    -webkit-transform: rotateY(180deg);
+
+    -webkit-box-shadow: -10px 10px 15px #888; /* make sure the shadow is not reverse after flipped */
+}
+
+.card {
+    width: 320px;
+    height: 480px;
+    position: absolute;
+
+    -webkit-box-shadow: 10px 10px 15px #888;
+
+    /*-webkit-perspective: 1000;*/
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.75s ease-in-out;
+}
+
+.card .face {
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    width: 320px;
+    height: 480px;
+    background: yellow;
+}
+
+.card .back {
+    -webkit-transform: rotateY(180deg);
+    background: blue;
+}
+

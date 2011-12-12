@@ -1,0 +1,68 @@
+body {
+    /*
+    height: 750px;
+    width: 1024px;
+    */
+    overflow: hidden;
+    background-image: url(Slices_userprofile/background.jpg);
+    background-position: center -30px;
+}
+
+.yui3-carousel {
+    margin: 0 auto;
+    padding: 0px 0 0 0;
+}
+
+.profile .yui3-carousel-block {
+    width: 265px;
+    height: 377px;
+
+    background-color: #FFF;
+
+    -webkit-border-radius: 15px;
+    -webkit-box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.4);
+
+    /*border: 1px solid #bfbfbf;*/
+}
+
+.basic-info {
+    background-image: url(Slices_userprofile/basic.png);
+}
+
+.enlarged .basic-info {
+    background-image: url(Slices_userprofile/basic_large_1.png);
+}
+
+.apps-info {
+    background-image: url(Slices_userprofile/apps.png);
+}
+
+.enlarged .apps-info {
+    background-image: url(Slices_userprofile/apps_large_1.png);
+}
+
+.contacts-info {
+    background-image: url(Slices_userprofile/contact.png);
+}
+
+.enlarged .contacts-info {
+    background-image: url(Slices_userprofile/contact_large_1.png);
+}
+
+.interests-info {
+    background-image: url(Slices_userprofile/interests.png);
+}
+
+.enlarged .interests-info {
+    background-image: url(Slices_userprofile/interests_large_1.png);
+}
+
+.privacy-info {
+    background-image: url(Slices_userprofile/privacy.png);
+}
+
+.enlarged .privacy-info {
+    background-image: url(Slices_userprofile/privacy_large_1.png);
+}
+
+

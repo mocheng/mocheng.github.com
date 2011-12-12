@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <style type="text/css" media="screen">
+
+.container {
+    padding: 10px;
+}
+
+        #tip {
+            display: none;
+            font-size: 30px;
+            color: white;
+        }
+
+        @media only screen and (orientation:portrait) {
+            #tip {
+                display: block;
+            }
+            .container {
+                display: none;
+            }
+        }
+
+
+
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
+    <link rel="stylesheet" href="album.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="album_style.css" type="text/css" media="screen" charset="utf-8">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script src="album.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<div id="tip">
+    This page is optimized to be displayed in landscape mode. Please rotate you screen 90 degree.
+</div>
+
+
+<div class="container">
+    <div id="album" class="yui3-album-loading">
+        <div class="cover-list">
+        <div class="card card-fold">
+            <div class="card">
+                <div class="cover">
+                    <img src="slices/cover_travel.png">
+                </div>
+                <div class="head1" style="font-size:100px">Travel</div>
+                <div class="head2">128</div>
+            </div>
+
+            <div class="hidden card">
+                <div class="inner">
+                    <div class="slice" style="width:323px;height:533px;top:18px;left:7px">
+                        <img src="slices/1-1.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden card">
+                <div class="inner">
+                    <div class="slice" style="width:323px;height:257px;top:18px;left:7px">
+                        <img src="slices/2-1.png"/>
+                    </div>
+                    <div class="slice" style="width:323px;height:257px;top:293px;left:7px">
+                        <img src="slices/2-2.png"/>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden card">
+                <div class="inner">
+                    <div class="slice" style="width:179px;height:179px;top:18px;left:7px">
+                        <img src="slices/3-1.png"/>
+                    </div>
+                    <div class="slice" style="width:125px;height:367px;top:18px;left:204px">
+                        <img src="slices/3-2.png"/>
+                    </div>
+                    <div class="slice" style="width:179px;height:170px;top:215px;left:7px">
+                        <img src="slices/3-3.png"/>
+                    </div>
+                    <div class="slice" style="width:323px;height:148px;top:403px;left:7px">
+                        <img src="slices/3-4.png"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-fold">
+            <div class="card-mock">
+                <div class="cover">
+                    <img src="slices/cover_photograph.png">
+                </div>
+                <div class="head1" style="font-size:60px">Photograph</div>
+                <div class="head2">25</div>
+            </div>
+        </div>
+        <div class="card card-fold">
+            <div class="card-mock">
+                <div class="cover">
+                    <img src="slices/cover_blackwhite.png">
+                </div>
+                <div class="head1" style="font-size:65px">Black&White</div>
+                <div class="head2">36</div>
+            </div>
+        </div>
+        <div class="card card-fold">
+            <div class="card-mock">
+                <div class="cover">
+                    <img src="slices/cover_art.png">
+                </div>
+                <div class="head1" style="font-size:100px">Art</div>
+                <div class="head2">248</div>
+            </div>
+        </div>
+        <div class="card card-fold">
+            <div class="card-mock">
+                <div class="cover">
+                    <img src="slices/family.png">
+                </div>
+                <div class="head1" style="font-size:94px">Family</div>
+                <div class="head2">72</div>
+            </div>
+        </div>
+        <div class="card card-fold">
+            <div class="card-mock">
+                <div class="cover">
+                    <img src="slices/favourite.png">
+                </div>
+                <div class="head1" style="font-size:81px">Favourite</div>
+                <div class="head2">164</div>
+            </div>
+        </div>
+        </div>
+        <div class="fold-background"></div>
+        <div class="flicker">
+            <div class="flicker-bar"></div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('album', function(Y) {
+    if (!Y.UA.webkit) {
+        alert('Currently this page is only supported for webkit browsers. Please view this in Safari, Chrome or iPad browser');
+    }
+
+    new Y.Album({
+        srcNode: '#album'
+    }).render();
+});
+</script>
+
+</body>
+</html>

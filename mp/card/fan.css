@@ -1,0 +1,24 @@
+.card-container {
+    -webkit-transition: 0.15s ease-out;
+}
+
+.card-container .card{
+    border: 1px solid gray;
+    -webkit-box-shadow: 10px 10px 15px #888;
+}
+
+.unfold .card-1 {
+    -webkit-transform-origin: 0 100%;
+}
+
+.unfold .card-2 {
+    -webkit-transform: rotate(15deg);
+    -webkit-transform-origin: 3% 95%;
+}
+
+.unfold .card-3 {
+    -webkit-transform: rotate(30deg);
+    -webkit-transform-origin: 5% 90%;
+}
+
+

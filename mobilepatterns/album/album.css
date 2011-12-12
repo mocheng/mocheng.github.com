@@ -116,7 +116,7 @@
 
 .unfolded .card:nth-child(1) {
     z-index: 10;
-    -webkit-animation: unfold-cover 1s ease-out;
+    -webkit-animation: unfold-cover 5s ease-out;
     -webkit-transform: rotateY(360deg) translate(200%);
 }
 
@@ -133,13 +133,13 @@
 .unfolded .card:nth-child(3) {
     display: block;
     z-index: 3;
-    -webkit-animation: unfold-card3 1s ease-out;
+    -webkit-animation: unfold-card3 5s ease-out;
 }
 
 .unfolded .card:nth-child(4) {
     display: block;
     z-index: 10;
-    -webkit-animation: unfold-card4 1s ease-out;
+    -webkit-animation: unfold-card4 5s ease-out;
     -webkit-transform: rotateY(360deg) translate(200%);
 }
 
@@ -154,9 +154,10 @@
     width: 100%;
     height: 100%;
     content: ' ';
-    z-index: 0;
+    z-index: 10;
     -webkit-transform: rotateY(180deg);
     -webkit-backface-visibility: hidden;
+    -webkit-translate3d: (0,0,0);
     background: #bfbfbf;
 
     -webkit-border-radius: 15px;
