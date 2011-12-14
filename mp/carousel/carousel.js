@@ -85,6 +85,9 @@ Y.Carousel = Y.Base.create('carousel', Y.Widget, [],
         //this.cb.delegate('touchend', this._onInfoTapped, 'div', this);
     },
 
+    _onFlicked: function(e) {
+    },
+
     _onInfoTapped: function(node) {
         var fanBlock = node.get('parentNode');
 
@@ -164,8 +167,8 @@ Y.Carousel = Y.Base.create('carousel', Y.Widget, [],
         this._headIndex = (this._headIndex + stepIndex + this._fanCount ) % this._fanCount;
         this._tailIndex = (this._tailIndex + stepIndex + this._fanCount ) % this._fanCount;
 
-        Y.log('head index:' + this._headIndex);
-        Y.log('tail index:' + this._tailIndex);
+        //Y.log('head index:' + this._headIndex);
+        //Y.log('tail index:' + this._tailIndex);
     }
 
 },
@@ -194,5 +197,5 @@ Y.Carousel = Y.Base.create('carousel', Y.Widget, [],
 },
 '0.0.1',
 {
-    requires: ['base', 'widget', 'node', 'event-flick', 'transition']
+    requires: ['base', 'widget', 'node', 'event-move', 'event-flick', 'transition']
 });
