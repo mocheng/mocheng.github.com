@@ -1,0 +1,159 @@
+/*html {
+    background: none;
+}*/
+body {
+    /*padding: 10px;*/
+    height: 750px;
+    background: url(slices/background_blue.png) no-repeat;
+}
+
+#tip {
+    display: none;
+    font-size: 30px;
+    color: gray;
+}
+
+@media only screen and (orientation:portrait) {
+    #tip {
+        display: block;
+    }
+    .container {
+        display: none;
+    }
+}
+
+
+
+.page{
+    display: block;
+    height: 570px;
+    width : 1024px;
+    /*border: 1px solid #bfbfbf;*/
+
+    font-size: 30px;
+}
+.container {
+    padding-top: 30px;
+    width: 1024px;
+    height: 631px;
+    background: url(slices/background.png) no-repeat;
+}
+
+.block {
+    /*margin: 5px;*/
+    padding: 10px;
+}
+.p-1-1, .p-1-2, .p-1-3, .p-1-4,
+.box-1, .p-1-7, .p-1-8,
+.p-2-1, .p-2-2, .p-2-3,
+.p-3-1, .p-3-2, .p-3-3{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+.p-1-1 {
+    margin-left: 10px;
+    width: 329px;
+    height: 259px;
+    background-image: url(slices/p1-1.png)
+}
+.p-1-2 {
+    margin-left: 10px;
+    width: 329px;
+    height: 276px;
+    background-image: url(slices/p1-2.png)
+}
+.p-1-3 {
+    width: 330px;
+    height: 176px;
+    background-image: url(slices/p1-3.png)
+}
+.p-1-4 {
+    width: 145px;
+    height: 361px;
+    background-image: url(slices/p1-4.png);
+    display: inline-block;
+}
+.box-1 {
+    margin-left: 5px;
+    width: 172px;
+    height: 361px;
+    display: inline-block;
+}
+.p-1-5 {
+    width: 172px;
+    height: 172px;
+    background-image: url(slices/p1-5.png)
+}
+
+.p-1-6 {
+    margin-top: 10px;
+    width: 172px;
+    height: 180px;
+    background-image: url(slices/p1-6.png)
+}
+.p-1-7 {
+    width: 325px;
+    height: 357px;
+    background-image: url(slices/p1-7.png)
+}
+.p-1-8 {
+    width: 325px;
+    height: 180px;
+    background-image: url(slices/p1-8.png)
+}
+.p-2-1 {
+    width: 666px;
+    height: 544px;
+    background-image: url(slices/p2-1.png)
+}
+.p-2-2 {
+    width: 325px;
+    height: 253px;
+    background-image: url(slices/p2-2.png)
+}
+.p-2-3 {
+    width: 325px;
+    height: 280px;
+    background-image: url(slices/p2-3.png)
+}
+.p-3-1 {
+    width: 477px;
+    height: 524px;
+    background-image: url(slices/p3-1.png)
+}
+.p-3-2 {
+    width: 502px;
+    height: 271px;
+    background-image: url(slices/p3-2.png)
+}
+.p-3-3 {
+    width: 499px;
+    height: 263px;
+    background-image: url(slices/p3-3.png)
+}
+
+.landscape {
+    width: 200px;
+    height: 150px;
+    display: block;
+    margin: 10px auto;
+}
+.portrait {
+    width: 150px;
+    height: 200px;
+    display: block;
+    margin: 10px auto;
+}
+
+.footer{
+    position: relative;
+    top: 20px;
+    font-size: 30px;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    letter-spacing: 0;
+    word-spacing: 0;
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+}

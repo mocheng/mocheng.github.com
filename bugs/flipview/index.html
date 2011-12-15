@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html manifest="flipview.appcache">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
+    <link rel="stylesheet" href="flipview.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="flipview_style.css" type="text/css" media="screen" charset="utf-8">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    <script src="flipview.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+<div id="tip">
+    This page is optimized to be displayed in landscape mode. Please rotate you screen 90 degree.
+</div>
+
+<div class="container">
+    <div id="flippable" class="yui3-flipview-loading">
+        <div class="page yui3-g">
+            <div class="yui3-u-1-3">
+                <div class="p-1-1"></div>
+                <div class="p-1-2"></div>
+            </div>
+            <div class="yui3-u-1-3" style="height: 555px">
+                <div class="p-1-3"></div>
+                <div class="p-1-4"></div>
+                <div class="box-1">
+                    <div class="p-1-5"></div>
+                    <div class="p-1-6"></div>
+                </div>
+            </div>
+            <div class="yui3-u-1-3">
+                <div class="p-1-7"></div>
+                <div class="p-1-8"></div>
+            </div>
+            <div class="footer">1 &#47; 3</div>
+        </div>
+        <div class="page yui3-g">
+            <div class="yui3-u-1-2" style="width: 676px">
+                <div class="p-2-1"></div>
+            </div>
+            <div class="yui3-u-1-2" style="width: 335px">
+                <div class="p-2-2"></div>
+                <div class="p-2-3"></div>
+            </div>
+            <div class="footer">2 &#47; 3</div>
+        </div>
+        <div class="page yui3-g">
+            <div class="yui3-u-1-2" style="width: 487px">
+                <div class="p-3-1"></div>
+            </div>
+            <div class="yui3-u-1-2">
+                <div class="p-3-2"></div>
+                <div class="p-3-3"></div>
+            </div>
+            <div class="footer">3 &#47; 3</div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('flipview', function(Y) {
+    if (!Y.UA.webkit) {
+        alert('Currently this page is only supported for webkit browsers. Please view this in Safari, Chrome or iPad browser');
+    }
+
+    new Y.FlipView({
+        srcNode: '#flippable'
+    }).render();
+});
+</script>
+
+</body>
+</html>
