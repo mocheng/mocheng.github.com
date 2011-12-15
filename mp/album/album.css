@@ -1,4 +1,4 @@
-.yui3-js-enabled .yui3-album-loading {
+.ui3-js-enabled .yui3-album-loading {
     display: none;
 }
 
@@ -12,22 +12,14 @@
 }
 
 /* unfold transition */
-/*
+.card-mock,
 .card {
-    border: 1px solid #bfbfbf;
-    width: 150px;
-    height: 200px;
-
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-
-    background: #FFF;
-
+    -webkit-backface-visibility: hidden;
     -webkit-perspective: 3000;
-
+    position: absolute;
+    left: 0;
+    top: 0;
 }
-*/
 /*
 .card-fold {
     float: left;
@@ -39,19 +31,12 @@
 */
 
 
-.card-mock,
-.card {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
 
 /************/
 
 @-webkit-keyframes unfold-cover {
     0% {
-        display: block;
+        /*display: block;*/
         -webkit-transform-origin: right center;
         -webkit-transform: rotateY(0deg);
     }
@@ -64,7 +49,7 @@
         -webkit-transform: rotateY(180deg) translate(-200%);
     }
     100% {
-        display: none;
+        /*display: none;*/
         -webkit-transform-origin: left center;
         -webkit-transform: rotateY(360deg) translate(200%);
     }
@@ -72,15 +57,17 @@
 
 @-webkit-keyframes unfold-card3 {
     0% {
+        opacity: 0;
         -webkit-transform-origin: right center;
         -webkit-transform: rotateY(180deg) translate(100%);
     }
     50% {
+        opacity: 0;
         -webkit-transform-origin: right center;
         -webkit-transform: rotateY(360deg) translate(100%);
     }
-    50.1% {
-        display: block;
+    75% {
+        opacity: 1;
         -webkit-transform-origin: left center;
         -webkit-transform: rotateY(360deg) translate(100%);
     }
@@ -116,81 +103,105 @@
 
 @-webkit-keyframes fold-cover {
     0% {
-        z-index: 1;
-        opacity: 0;
-
+        /*display: block;*/
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(360deg) translate(200%);
     }
     50% {
-        z-index: 1;
-        opacity: 0;
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(180deg) translate(-200%);
 
     }
     50.1% {
-        z-index: 1;
-        opacity: 0;
+
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(180deg);
     }
     100% {
-        z-index: 4;
+        /*display: none;*/
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(0deg);
+    }
+}
+
+@-webkit-keyframes fold-card2 {
+    0% {
         opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }
 
 @-webkit-keyframes fold-card3 {
     0% {
-        -webkit-transform-origin: right center;
+        opacity: 1;
+        -webkit-transform-origin: left center;
         -webkit-transform: rotateY(360deg) translate(100%);
+
     }
     50% {
-        -webkit-transform-origin: right center;
+        opacity: 1;
+        -webkit-transform-origin: left center;
         -webkit-transform: rotateY(360deg) translate(100%);
+
     }
     50.1% {
-        z-index: 4;
+        opacity: 0;
         -webkit-transform-origin: right center;
         -webkit-transform: rotateY(360deg) translate(100%);
     }
     100% {
+        opacity: 0;
         -webkit-transform-origin: right center;
-        -webkit-transform: rotateY(180deg) translate(100%);
+        -webkit-transform: rotateY(0deg);
+
     }
+
 }
 
 @-webkit-keyframes fold-card4 {
     0% {
-        z-index: 11;
-        opacity : 1;
+        opacity: 1;
         -webkit-transform-origin: left center;
         -webkit-transform: rotateY(360deg) translate(200%);
-    }
-    50% {
-        z-index: 11;
-        opacity : 1;
-        -webkit-transform-origin: left center;
-        -webkit-transform: rotateY(180deg) translate(-200%);
-    }
-    50.1% {
-        opacity : 0;
-        -webkit-transform-origin: right center;
-        -webkit-transform: rotateY(180deg);
-    }
-    100% {
-        opacity : 0;
         /*
         -webkit-transform-origin: right center;
         -webkit-transform: rotateY(0deg);
         */
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform-origin: left center;
+        -webkit-transform: rotateY(180deg) translate(-200%);
+
+    }
+    50.1% {
+        opacity: 0;
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(180deg);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: right center;
+        -webkit-transform: rotateY(0deg);
     }
 }
 
 
 .unfolded .card:nth-child(1) {
     z-index: 11;
-    display: none;
+    /*display: none;*/
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: unfold-cover 1s ease-out;
     -webkit-transform: rotateY(360deg) translate(200%);
 }
 
 .unfolded .card:nth-child(2) {
+
     display: block;
     z-index: 3;
 }
@@ -203,38 +214,48 @@
 .unfolded .card:nth-child(3) {
     display: block;
     z-index: 4;
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: unfold-card3 1s ease-out;
 }
 
 .unfolded .card:nth-child(4) {
     display: block;
     z-index: 11;
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: unfold-card4 1s ease-out;
     -webkit-transform: rotateY(360deg) translate(200%);
 }
 
 .folded .card:nth-child(1) {
-    z-index: 4;
+    z-index: 11;
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: fold-cover 1s ease-out;
     -webkit-transform: rotateY(0deg);
 }
 
 .folded .card:nth-child(2) {
     display: block;
-    z-index: 1;
+    z-index: 4;
+    -webkit-animation: fold-card2 1s;
+    opacity: 0;
 }
 
 .folded .card:nth-child(3) {
     display: block;
-    z-index: 1;
+    z-index: 3;
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: fold-card3 1s ease-out;
     -webkit-transform: rotateY(0deg);
+    /*-webkit-transform: rotateY(0deg);*/
 }
 
 .folded .card:nth-child(4) {
     display: block;
-    z-index: 1;
+    opacity: 0;
+    z-index: 11;
+    -webkit-transform-style: preserve-3d;
     -webkit-animation: fold-card4 1s ease-out;
+    -webkit-transform: rotateY(0deg);
 }
 
 /*
@@ -242,7 +263,7 @@
     -webkit-backface-visibility: hidden;
 }
 */
-.card-mock:before,
+/*.card-mock:before,*/
 .card:before {
     position: absolute;
     width: 100%;
@@ -251,11 +272,11 @@
     z-index: 1;
     -webkit-transform: rotateY(180deg);
     -webkit-backface-visibility: hidden;
-    /*background: #fff;*/
+    background: #000;
 
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
 
 

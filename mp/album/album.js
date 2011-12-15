@@ -35,7 +35,7 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
 
         this.cb.setStyle('height', this.cardHeight);
 
-        this.collapse();
+        this.collapse(false);
     },
 
     bindUI: function() {
@@ -43,6 +43,7 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
             var offsetX = 0,
                 endTarget = e.target,
                 distance = e.flick.distance;
+
 
             if(this.cb.all('.unfolded').size()!=0) {
                 return;
@@ -52,7 +53,7 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
                 this.expand();
             }
             if (!this._collpased && distance < 0) {
-                this.collapse();
+                this.collapse(false);
             }
         }, {
             minDistance: FLICK_MIN_DISTANCE,
@@ -81,6 +82,7 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
 
     _onClickCard: function(e) {
         var currTarget = e.currentTarget;
+
         if (!this._collpased) {
             if (currTarget.hasClass('unfolded')) {
                 this.fold(currTarget);
@@ -97,9 +99,6 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
         }
         cardFold.setData('folding', true);
 
-        cardFold.removeClass('folded');
-        cardFold.addClass('unfolded');
-
         var cards = cardFold.all('.inner');
         //this._rotate(cards);
         //this.rotate(cardFold);
@@ -109,6 +108,9 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
         if(cards.size()==0) {
             return;
         }
+
+        cardFold.removeClass('folded');
+        cardFold.addClass('unfolded');
 
         cards.each(function(node, idx, list) {
             node.setStyle('background', '#000');
@@ -132,10 +134,15 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
         }
         cardFold.setData('folding', true);
 
+        var cards = cardFold.all('.inner'),
+            that = this;
+        
+        if(cards.size()==0) {
+            return;
+        }
+
         cardFold.removeClass('unfolded');
         cardFold.addClass('folded');
-
-        var cards = cardFold.all('.inner');
 
         //this._rotate(cards);
         //this.rotate(cardFold);
@@ -145,6 +152,8 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
             }, this);
         }, 1000);
 
+        setTimeout(function(){that.bg.setStyle('display', 'none');}, 1000);
+
         cardFold.setData('folding', false);
 
         this.covers.each(function(node, idx, list) {
@@ -153,7 +162,7 @@ Y.Album = Y.Base.create('album', Y.Widget, [],
                 '-webkit-transform': 'translate(0px, 0)',
             });
         }, this);
-        this.bg.setStyle('display', 'none');
+        //this.bg.setStyle('display', 'none');
     },
 
     rotate: function(cardFold) {
