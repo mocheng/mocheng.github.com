@@ -58,6 +58,10 @@
     -webkit-transition: -webkit-transform 0.25s ease-out;
 }
 
+.yui3-carousel-fan.adjusting {
+    -webkit-transition: -webkit-transform 0.35s ease-out;
+}
+
 .yui3-carousel-content .enlarged .yui3-carousel-block {
     width: 415px;
     height: 592px;

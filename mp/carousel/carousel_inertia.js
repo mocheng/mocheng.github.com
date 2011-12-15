@@ -1,0 +1,289 @@
+YUI.add('carousel', function(Y) {
+
+var FLICK_MIN_DISTANCE = 15;
+
+Y.Carousel = Y.Base.create('carousel', Y.Widget, [],
+{
+    initializer: function() {
+        this.cb = this.get('contentBox');
+    },
+
+    destructor: function() {
+    },
+
+    renderUI: function() {
+        //var list = this.list = this.cb.one('ul:first-child'), count;
+        //
+
+        this.cb.setStyles({
+            width: this.get('width'),
+            height: this.get('height')
+        });
+
+        this._fan = this.cb.one('ul.yui3-carousel-fan');
+        this._fan.setStyles({
+            height: this.get('rotateRadius')
+        });
+
+        this.fanBlocks = this._fan.get('children').filter('li');
+        this.fanBlocks.setStyles({
+            height: this.get('rotateRadius')
+        });
+
+        var count = this._fanCount = this.fanBlocks.size();
+        var rotateDegree = this.get('rotateDegree');
+
+        this._headIndex = Math.floor((count+1)/2) - 1;
+        this._tailIndex = this._headIndex + 1;
+
+        this.fanBlocks.each(function(node, idx) {
+            var ang, zIndex;
+            if (idx < count/2) {
+                ang = idx * rotateDegree;
+            } else {
+                ang = - (count- idx) * rotateDegree;
+            }
+
+            zIndex = 100 - idx;
+
+            node.setData('rotate', ang);
+            //node.setData('index', idx);
+            node.setStyles({
+                '-webkit-transform' : 'rotate(' + ang + 'deg)',
+                'z-index' : zIndex
+            });
+        }, this);
+
+    },
+
+    bindUI: function() {
+        this.cb.on('gesturemovestart', this._onGestureMoveStart, {}, this);
+        this.cb.on('gesturemove', this._onGestureMove, {}, this);
+        this.cb.on('gesturemoveend', this._onGestureMoveEnd, {}, this);
+
+        this.cb.on('flick', function(e) {
+            var distance = e.flick.distance,
+                absDistance = Math.abs(distance);
+
+            // If user touch doesn't move too much, it is a tap; otherwise, it is a flick/swipe.
+            if (absDistance < FLICK_MIN_DISTANCE) {
+                if (e.target.hasClass('yui3-carousel-block')) {
+                    this._onInfoTapped(e.target);
+                }
+            } else {
+                /*
+                if (distance < 0) {
+                    this.prev();
+                } else {
+                    this.next();
+                }
+                */
+            }
+        },
+        {
+            //minDistance: FLICK_MIN_DISTANCE,
+            minDistance: 0,
+            axis: 'x',
+            minVelocity: 0,
+            preventDefault: true
+        }, this);
+
+        //this.cb.delegate('touchend', this._onInfoTapped, 'div', this);
+    },
+
+    _onGestureMoveStart: function(e) {
+        Y.log('movestart');
+        // It seems that gesturemove event listner doesn't work if we dont' have gesturemovestart event listener
+        this._dragging = true;
+        this._moveStartX = e.pageX;
+    },
+
+    _onGestureMove: function(e) {
+        Y.log(e);
+
+        if (!this._dragging) {
+            return;
+        }
+
+        var distance = e.pageX - this._moveStartX;
+        var radius = this.get('rotateRadius');
+
+        var degree = 180 * (distance * 1.0 / radius) / 3.1415926;
+
+        this.rotationAng = this.rotationAng || 0;
+
+        this._touchRotationAng = this._touchRotationAng || 0;
+        this._touchRotationAng = degree;
+
+        Y.log('touch move this._touchRotationAng=' + this._touchRotationAng);
+        Y.log('this.rotationAng=' + this.rotationAng);
+
+        this._fan.setStyles({
+                '-webkit-transform' : 'translate3d(0,0,0) rotate(' + (degree + this.rotationAng) + 'deg)'
+        });
+    },
+
+    _onGestureMoveEnd: function(e) {
+        var unitDegree = this.get('rotateDegree'),
+            touchRotationAng = this._touchRotationAng;
+
+        Y.log('touch end this._touchRotationAng=' + this._touchRotationAng);
+        Y.log('touch end this.rotationAng=' + this.rotationAng);
+
+        this._touchRotationAng = 0;
+
+        this._dragging = false;
+
+        // adjust to make it comfortable
+        if ( (Math.abs(touchRotationAng) < unitDegree) &&
+             Math.abs(e.pageX - this._moveStartX) > 5 // TODO: remove magic number
+            ) {
+            touchRotationAng = touchRotationAng > 0 ? unitDegree : -unitDegree;
+        }
+        this.rotationAng += touchRotationAng;
+
+        // find the nearest "fit" angle
+        var degree = this.rotationAng,
+            finalDegree;
+
+        finalDegree = (Math.floor((Math.floor(degree + unitDegree/2)) / unitDegree)) * unitDegree;
+
+            /*
+        alert(degree);
+        alert(Math.floor(degree));
+        alert(finalDegree);
+        */
+
+        this.rotationAng = finalDegree;
+
+        this._fan.addClass('adjusting');
+        this._fan.setStyles({
+                '-webkit-transform' : 'translate3d(0,0,0) rotate(' + this.rotationAng + 'deg)'
+        });
+        this._fan.once('webkitTransitionEnd', function(e) {
+                this._fan.removeClass('adjusting');
+
+                var count = Math.floor((Math.abs(touchRotationAng)  + (unitDegree /2)) / unitDegree);
+                for (var i=0; i<count; ++i) {
+                    this._switchFan(touchRotationAng > 0);
+                }
+        }, this);
+
+        //this._adjustFan();
+    },
+
+    _adjustFan: function() {
+
+    },
+
+    _onInfoTapped: function(node) {
+        var fanBlock = node.get('parentNode');
+
+        if (this._enlargedFanBlock && this._enlargedFanBlock != fanBlock) {
+            this._enlargedFanBlock.removeClass('enlarged');
+        }
+
+        if (fanBlock.hasClass('enlarged')) {
+            fanBlock.removeClass('enlarged');
+            this._enlargedFanBlock = null;
+        } else {
+            fanBlock.addClass('enlarged');
+            this._enlargedFanBlock = fanBlock;
+        }
+    },
+
+    next: function() {
+        this.rotate(this.get('rotateDegree'));
+    },
+
+    prev: function() {
+        this.rotate(- this.get('rotateDegree'));
+    },
+
+    rotate: function(degree) {
+        var that = this;
+
+        if (this.rotating) {
+            return;
+        }
+        this.rotating = true;
+
+        this.rotationAng = this.rotationAng || 0;
+        this.rotationAng += degree;
+
+        this._fan.setStyles({
+                '-webkit-transform' : 'translate3d(0,0,0) rotate(' + this.rotationAng + 'deg)'
+        });
+        this._fan.once('webkitTransitionEnd', function(e) {
+            that._switchFan(degree>0);
+            that.rotating = false;
+        });
+
+        /*
+        this._fan.transition({
+            'duration' : this.get('rotateDuration'),
+            'easing' : 'ease-out',
+            'transform': 'rotate(' + this.rotationAng + 'deg)'
+        }, function() {
+            that._switchFan(degree>0);
+            that.rotating = false;
+        });
+        */
+    },
+
+    _switchFan: function(clockwise) {
+        var movingFan, rotate, stepIndex,
+            edgeDegree = this._fanCount * this.get('rotateDegree');
+
+        if (clockwise) {
+            movingFan = this.fanBlocks.item(this._headIndex); //moving head fan
+            rotate = movingFan.getData('rotate');
+            rotate -= edgeDegree;
+            stepIndex = -1;
+        } else {
+            movingFan = this.fanBlocks.item(this._tailIndex); //moving tail fan
+            rotate = movingFan.getData('rotate');
+            rotate += edgeDegree;
+            stepIndex = 1;
+        }
+
+        movingFan.setData('rotate', rotate);
+        movingFan.setStyles({
+            '-webkit-transform' : 'rotate(' + rotate + 'deg)'
+        });
+
+        this._headIndex = (this._headIndex + stepIndex + this._fanCount ) % this._fanCount;
+        this._tailIndex = (this._tailIndex + stepIndex + this._fanCount ) % this._fanCount;
+
+        //Y.log('head index:' + this._headIndex);
+        //Y.log('tail index:' + this._tailIndex);
+    }
+
+},
+{
+    NAME: 'carousel',
+    ATTRS: {
+        rotateDuration: {
+            value:  0.25
+        },
+        rotateRadius: {
+            value: 3000
+        },
+        rotateDegree : {
+            value: 5
+        },
+        width: {
+            value: 1024
+        },
+        height: {
+            value: 800
+        }
+
+    }
+});
+
+},
+'0.0.1',
+{
+    requires: ['base', 'widget', 'node', 'event-move', 'event-flick', 'transition']
+});
