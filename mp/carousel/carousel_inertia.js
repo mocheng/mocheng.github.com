@@ -105,7 +105,7 @@ Y.Carousel = Y.Base.create('carousel', Y.Widget, [],
             return;
         }
 
-        var distance = e.pageX - this._moveStartX;
+        var distance = (e.pageX - this._moveStartX) * 1.3; //TODO: remove magic number
         var radius = this.get('rotateRadius');
 
         var degree = 180 * (distance * 1.0 / radius) / 3.1415926;
