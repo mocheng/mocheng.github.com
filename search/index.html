@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Index</title>
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+    -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+    <!-- enable full-screen mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <!-- controls the appearance of the status bar in full-screen mode -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <style type="text/css" media="screen">
+        #foo {
+            height: 420px;
+            background: red;
+        }
+        
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
+    <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+
+</head>
+<body onload="/mobile/i.test(navigator.userAgent) && !location.hash && setTimeout(function () { if (!pageYOffset) window.scrollTo(0, 1); }, 1000); ">
+
+<div id="foo">
+    Hello world
+</div>
+
+<script type="text/javascript" charset="utf-8">
+YUI().use('node', function(Y) {
+});
+</script>
+</body>
+
+</html>
