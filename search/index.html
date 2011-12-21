@@ -13,25 +13,201 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
     <style type="text/css" media="screen">
-        #foo {
+
+        body {
             height: 420px;
+        }
+
+        .top_toolbar, .bottom_toolbar  {
+            height: 50px;
+            width: 100%;
+            position: absolute;
+        }
+
+        .top_toolbar {
+            top: 0;
             background: red;
         }
-        
+
+        .bottom_toolbar {
+            bottom: 0;
+            background: green;
+        }
+
+        .main_content{
+            width: 100%;
+            position: absolute;
+            top: 50px;
+            bottom: 50px;
+            /*background: blue;*/
+        }
+
+        /*
+        .row {
+            width: 100%;
+            height: 100px;
+        }
+        */
+
+        .tile {
+            border: 1px solid #BFBFBF;
+            background: #FFF;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            -webkit-transition-property: -webkit-transform,width,height;
+            -webkit-transition-duration: 0.5s;
+            -webkit-transition-timing-function: ease-out;
+        }
+
+        .small-tile {
+            float: left;
+            margin: 5px;
+            width: 145px;
+            height: 90px;
+        }
+
+        .big-tile {
+            margin: 5px;
+            width: 295px;
+            height: 90px;
+        }
+
+        .focused .tile {
+        }
+
+        .tile1 {
+            -webkit-transform: translate(0, 0);
+        }
+
+        .tile2 {
+            -webkit-transform: translate(150px, 0);
+        }
+
+        .tile3 {
+            -webkit-transform: translate(0, 100px);
+        }
+
+        .tile4 {
+            -webkit-transform: translate(150px, 100px);
+        }
+
+        .tile5 {
+            -webkit-transform: translate(0, 200px);
+        }
+
+        /*
+        .focused .tile2 {
+            -webkit-transform: translate(300px, 300px);
+        }
+        */
+
+        .enlarged {
+            -webkit-transform: translate(0, 0);
+            width: 300px;
+            height: 300px;
+            /*z-index: 1000;*/
+        }
+
+        .highlighted {
+            z-index: 1000;
+        }
+
     </style>
 
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
 
 </head>
+<!--
 <body onload="/mobile/i.test(navigator.userAgent) && !location.hash && setTimeout(function () { if (!pageYOffset) window.scrollTo(0, 1); }, 1000); ">
+    -->
 
-<div id="foo">
-    Hello world
-</div>
+<body>
+    <div class="top_toolbar">
+        top toolbar
+    </div>
+    <div class="main_content">
+        <div class="tile small-tile tile1">
+            Weather
+        </div>
+        <div class="tile small-tile tile2">
+            EMail
+        </div>
+        <div class="tile small-tile tile3">
+            Twitter
+        </div>
+        <div class="tile small-tile tile4">
+            Facebook
+        </div>
+        <div class="tile big-tile tile5">
+            New Arrival
+        </div>
+    </div>
+    <!--
+    <div class="bottom_toolbar">
+        bottom toolbar
+    </div>
+    -->
 
 <script type="text/javascript" charset="utf-8">
-YUI().use('node', function(Y) {
+
+YUI().use('node', 'event-move', function(Y) {
+
+    /*
+    Y.one('body').on('touchmove', function(e) {
+        e.preventDefault();
+    });
+    */
+    var mainContent = Y.one('.main_content');
+    var currEnlarged = null;
+
+    mainContent.delegate( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
+        var currTarget = e.currentTarget;
+
+        if (currTarget == currEnlarged) {
+
+            //alert(currTarget);
+
+            currTarget.removeClass('enlarged');
+            /*
+            currTarget.on('webkitTransitionEnd', function(e) {
+                currTarget.removeClass('highlighted');
+            });
+            */
+            setTimeout(function() {
+                currTarget.removeClass('highlighted');
+            }, 500);
+
+            currEnlarged = null;
+
+            mainContent.removeClass('focused');
+        } else {
+            if (!mainContent.hasClass('focused')) {
+                mainContent.addClass('focused');
+            }
+
+            if (currEnlarged) {
+                currEnlarged.removeClass('enlarged');
+                /*
+                currEnlarged.on('webkitTransitionEnd', function(e) {
+                    alert(currTarget);
+                    currEnlarged.removeClass('highlighted');
+                });
+                */
+                setTimeout(function() {
+                    currTarget.removeClass('highlighted');
+                }, 500);
+            }
+
+            currTarget.addClass('enlarged');
+            currTarget.addClass('highlighted');
+            currEnlarged = currTarget;
+        }
+
+    }, '.tile', this);
+
 });
 </script>
 </body>
