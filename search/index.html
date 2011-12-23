@@ -220,6 +220,7 @@
             New Arrival
         </div>
     </div>
+    <span id="foo">http://farm8.static.flickr.com/7163/6557551431_9285687890.jpg</span>
     <!--
     <div class="bottom_toolbar">
         bottom toolbar
@@ -229,6 +230,9 @@
 <script type="text/javascript" charset="utf-8">
 
 YUI().use('node', 'event-move', 'event-flick', function(Y) {
+        alert(Y.one('#foo').get('innerHTML'));
+        Y.one('#foo').set('innerHTML', 'http://farm8.static.flickr.com/7163/6557551431_9285687890.jpg');
+        alert(Y.one('#foo').get('innerHTML'));
 
     /*
     Y.one('body').on('touchmove', function(e) {
