@@ -16,6 +16,10 @@
 
         body {
             height: 420px;
+            -webkit-transition-property: -webkit-transform;
+            -webkit-transition-duration: 0.2s;
+            -webkit-transition-timing-function: ease-out;
+
         }
 
         .top_toolbar, .bottom_toolbar  {
@@ -74,7 +78,16 @@
             background: green;
         }
 
-        .main_content{
+        /* search content */
+        .search_content {
+            height: 100%;
+            width: 320px;
+            background: #FFF;
+
+            -webkit-transform: transition(-320px, 0);
+        }
+
+        .tile_content{
             width: 100%;
             position: absolute;
             top: 50px;
@@ -167,7 +180,7 @@
 <body>
     <div class="top_toolbar">
         <div id="location" class="location">
-            <span class="icon">Expand</span>
+            <span id="expand" class="icon expand">Expand</span>
             <span class="subject">location indicator</span>
             <div class="map">
                 TODO: This should be a map!<br/>
@@ -179,7 +192,10 @@
             </div>
         </div>
     </div>
-    <div class="main_content">
+    <div id="search_content" class="search_content">
+        TODO: search page
+    </div>
+    <div id="tile_content" class="tile_content">
         <div class="tile small-tile tile1">
             Weather
         </div>
@@ -213,8 +229,10 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
     */
 
     var ZOOM_TIME = 250,
-        mainContent = Y.one('.main_content'),
+        tileContent = Y.one('.tile_content'),
         locationContent = Y.one('#location'),
+        searchContent = Y.one('.search_content');
+        expandIcon = Y.one('#expand'),
         currEnlarged = null;
 
     Y.one('document').on('touchmove', function(e) {
@@ -233,7 +251,13 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
         axis: 'y'
     }, this);
 
-    mainContent.delegate( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
+    expandIcon.on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
+        Y.one('body').setStyles({
+            '-webkit-transform' : 'translate(320px, 0)'
+        });
+    }, this);
+
+    tileContent.delegate( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
         var currTarget = e.currentTarget;
 
         if (currTarget == currEnlarged) {
@@ -252,10 +276,10 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
 
             currEnlarged = null;
 
-            mainContent.removeClass('focused');
+            tileContent.removeClass('focused');
         } else {
-            if (!mainContent.hasClass('focused')) {
-                mainContent.addClass('focused');
+            if (!tileContent.hasClass('focused')) {
+                tileContent.addClass('focused');
             }
 
             if (currEnlarged) {
