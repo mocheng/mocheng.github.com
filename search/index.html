@@ -13,171 +13,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
     <style type="text/css" media="screen">
-
-        body {
-            height: 420px;
-            -webkit-transition-property: -webkit-transform;
-            -webkit-transition-duration: 0.2s;
-            -webkit-transition-timing-function: ease-out;
-
-        }
-
-        .top_toolbar, .bottom_toolbar  {
-            height: 50px;
-            width: 100%;
-            position: absolute;
-        }
-
-        .top_toolbar {
-            top: 0;
-            background: red;
-        }
-
-        .location {
-        }
-
-        .location .icon,
-        .location .subject {
-            margin: 5px;
-            padding: 5px;
-            display: block;
-            float:left;
-            font-size: 16px;
-            color: blue;
-        }
-
-        .location .map {
-            width: 320px;
-            height: 400px;
-            /*display: none;*/
-            font-size: 18px;
-            background: #FFF;
-
-            position: absolute;
-            left: 0px;
-
-            -webkit-transform: translate(0, -400px);
-
-            -webkit-transition-property: -webkit-transform;
-            -webkit-transition-duration: 0.5s;
-            -webkit-transition-timing-function: ease-out;
-        }
-
-        .location.expanded .subject {
-            display: none;
-        }
-
-        .location.expanded .map{
-            -webkit-transform: translate(0, 0);
-            display: block;
-            z-index: 1000;
-        }
-
-        .bottom_toolbar {
-            bottom: 0;
-            background: green;
-        }
-
-        /* search content */
-        .search_content {
-            height: 100%;
-            width: 320px;
-            background: #FFF;
-            position: relative;
-
-            -webkit-transform: translate(-320px, 0);
-        }
-
-        .search_content .icon {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-
-        .tile_content{
-            width: 100%;
-            position: absolute;
-            top: 50px;
-            bottom: 50px;
-            /*background: blue;*/
-        }
-
-        /*
-        .row {
-            width: 100%;
-            height: 100px;
-        }
-        */
-
-        .tile {
-            border: 1px solid #BFBFBF;
-            background: #FFF;
-            position: absolute;
-            top: 0;
-            left: 0;
-
-            -webkit-transition-property: -webkit-transform,width,height;
-            -webkit-transition-duration: 0.25s;
-            -webkit-transition-timing-function: ease-out;
-        }
-
-        .small-tile {
-            float: left;
-            margin: 5px;
-            width: 145px;
-            height: 90px;
-        }
-
-        .big-tile {
-            margin: 5px;
-            width: 295px;
-            height: 90px;
-        }
-
-        .focused .tile {
-        }
-
-        .tile1 {
-            -webkit-transform: translate(0, 0);
-        }
-
-        .tile2 {
-            -webkit-transform: translate(150px, 0);
-        }
-
-        .tile3 {
-            -webkit-transform: translate(0, 100px);
-        }
-
-        .tile4 {
-            -webkit-transform: translate(150px, 100px);
-        }
-
-        .tile5 {
-            -webkit-transform: translate(0, 200px);
-        }
-
-        /*
-        .focused .tile2 {
-            -webkit-transform: translate(300px, 300px);
-        }
-        */
-
-        .enlarged {
-            -webkit-transform: translate(0, 0);
-            width: 300px;
-            height: 300px;
-            /*z-index: 1000;*/
-        }
-
-        .highlighted {
-            z-index: 1000;
-        }
-
     </style>
 
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" charset="utf-8">
+    <link rel="stylesheet" href="style_2x.css" type="text/css" media="only screen and (-webkit-min-device-pixel-ratio:2)" charset="utf-8">
+
+    <!--
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.4.1/build/cssgrids/cssgrids-min.css&3.4.1/build/cssreset/cssreset-min.css&3.4.1/build/cssfonts/cssfonts-min.css&3.4.1/build/cssbase/cssbase-min.css">
     <script src="http://yui.yahooapis.com/3.4.1/build/yui/yui-min.js"></script>
+    -->
 
 </head>
 <!--
@@ -187,8 +31,8 @@
 <body>
     <div class="top_toolbar">
         <div id="location" class="location">
-            <span id="expand" class="icon expand">Expand</span>
-            <span class="subject">location indicator</span>
+            <span id="search" class="icon search"></span>
+            <span id="curr_loc" class="subject"></span>
             <div class="map">
                 TODO: This should be a map!<br/>
                 TODO: This should be a map!<br/>
@@ -204,35 +48,35 @@
         <span id="back_to_tile" class="icon">Back</span>
     </div>
     <div id="tile_content" class="tile_content">
-        <div class="tile small-tile tile1">
+        <div id="tile1" class="tile small-tile tile1">
             Weather
         </div>
-        <div class="tile small-tile tile2">
+        <div id="tile2" class="tile small-tile tile2">
             EMail
         </div>
-        <div class="tile small-tile tile3">
+        <div id="tile3" class="tile small-tile tile3">
             Twitter
         </div>
-        <div class="tile small-tile tile4">
+        <div id="tile4" class="tile small-tile tile4">
             Facebook
         </div>
-        <div class="tile big-tile tile5">
+        <div id="tile5" class="tile big-tile tile5">
             New Arrival
         </div>
     </div>
-    <span id="foo">http://farm8.static.flickr.com/7163/6557551431_9285687890.jpg</span>
     <!--
     <div class="bottom_toolbar">
         bottom toolbar
     </div>
     -->
 
-<script type="text/javascript" charset="utf-8">
+<script src="zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="search.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/_javascript" charset="utf-8">
+
 
 YUI().use('node', 'event-move', 'event-flick', function(Y) {
-        alert(Y.one('#foo').get('innerHTML'));
-        Y.one('#foo').set('innerHTML', 'http://farm8.static.flickr.com/7163/6557551431_9285687890.jpg');
-        alert(Y.one('#foo').get('innerHTML'));
 
     /*
     Y.one('body').on('touchmove', function(e) {
@@ -244,7 +88,7 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
         tileContent = Y.one('.tile_content'),
         locationContent = Y.one('#location'),
         searchContent = Y.one('.search_content');
-        expandIcon = Y.one('#expand'),
+        searchIcon = Y.one('#search'),
         currEnlarged = null;
 
     Y.one('document').on('touchmove', function(e) {
@@ -263,7 +107,7 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
         axis: 'y'
     }, this);
 
-    expandIcon.on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
+    searchIcon.on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
         Y.one('body').setStyles({
             '-webkit-transform' : 'translate(320px, 0)'
         });
