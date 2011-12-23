@@ -83,8 +83,15 @@
             height: 100%;
             width: 320px;
             background: #FFF;
+            position: relative;
 
-            -webkit-transform: transition(-320px, 0);
+            -webkit-transform: translate(-320px, 0);
+        }
+
+        .search_content .icon {
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         .tile_content{
@@ -194,6 +201,7 @@
     </div>
     <div id="search_content" class="search_content">
         TODO: search page
+        <span id="back_to_tile" class="icon">Back</span>
     </div>
     <div id="tile_content" class="tile_content">
         <div class="tile small-tile tile1">
@@ -254,6 +262,12 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
     expandIcon.on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
         Y.one('body').setStyles({
             '-webkit-transform' : 'translate(320px, 0)'
+        });
+    }, this);
+
+    Y.one('#back_to_tile').on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
+         Y.one('body').setStyles({
+            '-webkit-transform' : 'translate(0, 0)'
         });
     }, this);
 
