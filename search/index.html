@@ -29,6 +29,46 @@
             background: red;
         }
 
+        .location {
+        }
+
+        .location .icon,
+        .location .subject {
+            margin: 5px;
+            padding: 5px;
+            display: block;
+            float:left;
+            font-size: 16px;
+            color: blue;
+        }
+
+        .location .map {
+            width: 320px;
+            height: 400px;
+            /*display: none;*/
+            font-size: 18px;
+            background: #FFF;
+
+            position: absolute;
+            left: 0px;
+
+            -webkit-transform: translate(0, -400px);
+
+            -webkit-transition-property: -webkit-transform;
+            -webkit-transition-duration: 0.5s;
+            -webkit-transition-timing-function: ease-out;
+        }
+
+        .location.expanded .subject {
+            display: none;
+        }
+
+        .location.expanded .map{
+            -webkit-transform: translate(0, 0);
+            display: block;
+            z-index: 1000;
+        }
+
         .bottom_toolbar {
             bottom: 0;
             background: green;
@@ -57,7 +97,7 @@
             left: 0;
 
             -webkit-transition-property: -webkit-transform,width,height;
-            -webkit-transition-duration: 0.5s;
+            -webkit-transition-duration: 0.25s;
             -webkit-transition-timing-function: ease-out;
         }
 
@@ -126,7 +166,18 @@
 
 <body>
     <div class="top_toolbar">
-        top toolbar
+        <div id="location" class="location">
+            <span class="icon">Expand</span>
+            <span class="subject">location indicator</span>
+            <div class="map">
+                TODO: This should be a map!<br/>
+                TODO: This should be a map!<br/>
+                TODO: This should be a map!<br/>
+                TODO: This should be a map!<br/>
+                TODO: This should be a map!<br/>
+                TODO: This should be a map!<br/>
+            </div>
+        </div>
     </div>
     <div class="main_content">
         <div class="tile small-tile tile1">
@@ -153,15 +204,34 @@
 
 <script type="text/javascript" charset="utf-8">
 
-YUI().use('node', 'event-move', function(Y) {
+YUI().use('node', 'event-move', 'event-flick', function(Y) {
 
     /*
     Y.one('body').on('touchmove', function(e) {
         e.preventDefault();
     });
     */
-    var mainContent = Y.one('.main_content');
-    var currEnlarged = null;
+
+    var ZOOM_TIME = 250,
+        mainContent = Y.one('.main_content'),
+        locationContent = Y.one('#location'),
+        currEnlarged = null;
+
+    Y.one('document').on('touchmove', function(e) {
+        e.preventDefault();
+    });
+
+    function expandLocation() {
+        locationContent.toggleClass('expanded');
+    };
+
+    locationContent.on('flick', function(e) {
+        e.halt();
+        expandLocation();
+    }, {
+        minDistance: 5,
+        axis: 'y'
+    }, this);
 
     mainContent.delegate( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
         var currTarget = e.currentTarget;
@@ -178,7 +248,7 @@ YUI().use('node', 'event-move', function(Y) {
             */
             setTimeout(function() {
                 currTarget.removeClass('highlighted');
-            }, 500);
+            }, ZOOM_TIME);
 
             currEnlarged = null;
 
@@ -198,7 +268,7 @@ YUI().use('node', 'event-move', function(Y) {
                 */
                 setTimeout(function() {
                     currTarget.removeClass('highlighted');
-                }, 500);
+                }, ZOOM_TIME);
             }
 
             currTarget.addClass('enlarged');
