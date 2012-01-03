@@ -1,5 +1,6 @@
 $(function() {
-var doc = document,
+var win = window,
+    doc = document,
     currentEnlargedTile,
     ZOOM_TIME = 0.3,
 
@@ -51,10 +52,17 @@ $.fn.init = function(x, y, w, h) {
     });
 };
 
+// change height
+if ( ('standalone' in window.navigator) && window.navigator.standalone) {
+    $('body').addClass('app-mode');
+}
+
 // disable page swiping
+/*
 $(document).on('touchmove', function(e) {
     e.preventDefault();
 });
+*/
 
 // init tile layout
 $('#tile1').init(0, 0, 144, 90);
@@ -80,11 +88,28 @@ tileContent.delegate('.tile', tapEvent, function(e) {
 
 });
 
+
+$(window).on('load', function() {
+    /mobile/i.test(navigator.userAgent) && 
+    !location.hash && 
+    setTimeout(function () {
+        if (!win.pageYOffset) window.scrollTo(0, 1); 
+    }, 200);
+});
+
 $('#search').on(tapEvent, function(e) {
     $('body').css({
         '-webkit-transform' : 'translate(320px, 0)'
     });
 });
+
+$('#back_to_tile').on(tapEvent, function(e) {
+    $('body').css({
+        '-webkit-transform' : 'translate(0, 0)'
+    });
+});
+
+
 
 // end of ready callback
 });

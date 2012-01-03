@@ -28,10 +28,10 @@
 <body onload="/mobile/i.test(navigator.userAgent) && !location.hash && setTimeout(function () { if (!pageYOffset) window.scrollTo(0, 1); }, 1000); ">
     -->
 
+<body class="foo">
 <body>
-    <div class="top_toolbar">
         <div id="location" class="location">
-            <span id="search" class="icon search"></span>
+            <span id="search" class="icon search">Search</span>
             <span id="curr_loc" class="subject"></span>
             <div class="map">
                 TODO: This should be a map!<br/>
@@ -44,23 +44,30 @@
         </div>
     </div>
     <div id="search_content" class="search_content">
-        TODO: search page
-        <span id="back_to_tile" class="icon">Back</span>
+        <span id="back_to_tile" class="icon search">Back</span>
+        <div id="conv-view" class="conv-view">
+
+        </div>
+        <div id="bot-bar" class="bot-bar">
+            <span id="icon-text" class="icon icon-text"></span>
+            <span id="icon-voice" class="icon icon-voice"></span>
+            <span id="icon-photo" class="icon icon-photo"></span>
+        </div>
     </div>
     <div id="tile_content" class="tile_content">
-        <div id="tile1" class="tile small-tile tile1">
+        <div id="tile1" class="tile small-tile tile1 tile-weather">
             Weather
         </div>
-        <div id="tile2" class="tile small-tile tile2">
+        <div id="tile2" class="tile small-tile tile2 tile-email">
             EMail
         </div>
-        <div id="tile3" class="tile small-tile tile3">
-            Twitter
-        </div>
-        <div id="tile4" class="tile small-tile tile4">
+        <div id="tile4" class="tile small-tile tile3 tile-facebook">
             Facebook
         </div>
-        <div id="tile5" class="tile big-tile tile5">
+        <div id="tile3" class="tile small-tile tile4 tile-twitter">
+            Twitter
+        </div>
+        <div id="tile5" class="tile big-tile tile5 tile-push-info">
             New Arrival
         </div>
     </div>
@@ -89,6 +96,7 @@ YUI().use('node', 'event-move', 'event-flick', function(Y) {
         locationContent = Y.one('#location'),
         searchContent = Y.one('.search_content');
         searchIcon = Y.one('#search'),
+        backIcon = Y.one('#search'),
         currEnlarged = null;
 
     Y.one('document').on('touchmove', function(e) {

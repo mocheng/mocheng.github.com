@@ -10,8 +10,9 @@
 body {
     height: 420px;
     -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.35s;
     -webkit-transition-timing-function: ease-out;
+    -webkit-transform: translate3d(0,0,0);
 
     background: url(slices/background.png) no-repeat;
     background-size: 320px 480px;
@@ -45,13 +46,6 @@ body {
     background-size: 228px 39px;
     width: 228px;
     height: 39px;
-}
-
-.location .search{
-    background: url(slices/search.png) no-repeat;
-    background-size: 37px 42px;
-    width: 37px;
-    height: 42px;
 }
 
 
@@ -101,6 +95,16 @@ body {
     top: 0;
     right: 0;
 }
+
+.icon.search{
+    background: url(slices/search.png) no-repeat;
+    background-size: 37px 42px;
+    width: 37px;
+    height: 42px;
+    text-indent: 4000px;
+}
+
+
 
 .tile_content{
     width: 100%;
@@ -182,3 +186,90 @@ height: 100px;
         z-index: 1000;
 }
 
+.tile-weather {
+    background: url(slices/weather.png) no-repeat;
+    background-size: 147px 112px;
+}
+
+.tile-email {
+    background: url(slices/email.png) no-repeat;
+    background-size: 147px 118px;
+}
+
+.tile-facebook {
+    background: url(slices/facebook.png) no-repeat;
+    background-size: 147px 118px;
+}
+
+.tile-twitter {
+    background: url(slices/twitter.png) no-repeat;
+    background-size: 147px 118px;
+}
+
+.tile-push-info {
+    background: url(slices/pushing-info.png) no-repeat;
+    background-size: 312px 160px;
+}
+
+
+/* bottom bar */
+.bot-bar
+{
+    background: url(slices/BottomBar.png) no-repeat;
+    background-size: 319px 71px;
+    width: 319px;
+    height: 71px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+
+.bot-bar .icon
+{
+    background-size: 55px 55px;
+    display: block;
+    width: 55px;
+    height: 55px;
+    float: left;
+    position: static;
+    margin: 5px 25px;
+}
+
+.bot-bar .icon-text
+{
+    background: url(slices/Icon_search.png) no-repeat;
+}
+
+.bot-bar .icon-text:active
+{
+    background: url(slices/Icon_search_click.png) no-repeat;
+}
+
+.bot-bar .icon-voice
+{
+    background: url(slices/Icon_Siri.png) no-repeat;
+}
+
+.bot-bar .icon-voice:active
+{
+    background: url(slices/Icon_Siri_click.png) no-repeat;
+}
+
+.bot-bar .icon-photo
+{
+    background: url(slices/Icon_camera.png) no-repeat;
+}
+
+.bot-bar .icon-photo:active
+{
+    background: url(slices/Icon_camera_click.png) no-repeat;
+}
+
+/* stand alone */
+/*
+.app-mode .search_content
+{
+    height: 460px;
+}
+*/
