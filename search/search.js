@@ -52,6 +52,30 @@ $.fn.init = function(x, y, w, h) {
     });
 };
 
+$.fn.showConversation = function(convs, interval) {
+    var i = 0,
+        that = this;
+        len = convs.length;
+
+    function showConv() {
+        if (i < len) {
+            that.html(that.html() + convs[i]);
+            /*
+            alert(that.attr('scrollHeight'));
+            that.attr('scrollTop', that.attr('scrollHeight'));
+            alert(that.attr('scrollTop'));
+            */
+            ++i;
+
+            setTimeout(showConv, interval);
+        }
+    };
+    setTimeout(showConv, interval);
+};
+
+// for iscroll
+var convView = new iScroll('conv-view');
+
 // change height
 if ( ('standalone' in window.navigator) && window.navigator.standalone) {
     $('body').addClass('app-mode');
@@ -109,6 +133,17 @@ $('#back_to_tile').on(tapEvent, function(e) {
     });
 });
 
+$('#icon-voice').on(tapEvent, function(e) {
+    $('#conv-list').showConversation([
+        '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
+        '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
+
+        '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
+        '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
+
+        '<li><img src="slices/Chat_1_3.png" width="284" height="222"><br><img src="slices/Chat_1_4.png" width="266" height="32"></li>'
+    ], 450);
+});
 
 
 // end of ready callback

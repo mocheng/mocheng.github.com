@@ -266,6 +266,15 @@ height: 100px;
     background: url(slices/Icon_camera_click.png) no-repeat;
 }
 
+/* conversation view */
+.conv-view
+{
+    height: 400px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 /* stand alone */
 /*
 .app-mode .search_content
