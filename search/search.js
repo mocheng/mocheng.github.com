@@ -60,6 +60,13 @@ $.fn.showConversation = function(convs, interval) {
     function showConv() {
         if (i < len) {
             that.html(that.html() + convs[i]);
+
+            convView.refresh();
+            if (convView.maxScrollY < 0)
+            {
+                convView.scrollToElement('li:last-child');
+            }
+
             /*
             alert(that.attr('scrollHeight'));
             that.attr('scrollTop', that.attr('scrollHeight'));
@@ -74,7 +81,9 @@ $.fn.showConversation = function(convs, interval) {
 };
 
 // for iscroll
-var convView = new iScroll('conv-view');
+var convView = new iScroll('conv-view', {
+    snap: 'li'
+});
 
 // change height
 if ( ('standalone' in window.navigator) && window.navigator.standalone) {
@@ -138,11 +147,8 @@ $('#icon-voice').on(tapEvent, function(e) {
         '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
         '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
 
-        '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
-        '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
-
         '<li><img src="slices/Chat_1_3.png" width="284" height="222"><br><img src="slices/Chat_1_4.png" width="266" height="32"></li>'
-    ], 450);
+    ], 650);
 });
 
 
