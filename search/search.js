@@ -2,7 +2,8 @@ $(function() {
 var win = window,
     doc = document,
     currentEnlargedTile,
-    ZOOM_TIME = 0.10,
+    ZOOM_TIME = 0.15,
+    allTiles = [],
 
     EXPANDED_WIDTH = 313;
     EXPANDED_HEIGHT = 345;
@@ -12,11 +13,44 @@ var win = window,
     tileContent = $('.tile-pane'),
     tapEvent = 'ontouchend' in doc ? 'tap' : 'click';
 
+function expandTile(tile)
+{
+    var offsetX = 0;
+    tile.expand();
+
+    $('.tile').each(function() {
+        var t = $(this);
+        if (tile.attr('id') != t.attr('id')) {
+            t.addClass('minify')
+
+            t.anim({
+                '-webkit-transform' : 'translate(' + offsetX + 'px, ' + 50 + 'px)',
+            }, ZOOM_TIME, 'ease-in', function() {
+            });
+
+            offsetX += 80;
+        }
+    });
+}
+
+function collpaseTile(tile)
+{
+    tile.collpase();
+
+    $('.tile').each(function() {
+        var t = $(this);
+        if (tile.attr('id') != t.attr('id')) {
+            t.removeClass('minify')
+            t.reset();
+        }
+    });
+}
+
 //extend $ to have some methods
 $.fn.expand = function() {
     var that = this,
         ex = that.data('expanded-x'),
-        ey = that.data('expanded-y') || 90,
+        ey = that.data('expanded-y') || 110,
         ew = parseInt(that.data('expanded-w'));
 
     that.addClass('expanded');
@@ -61,6 +95,16 @@ $.fn.init = function(options) {
         '-webkit-transform' : 'translate(' + x + 'px, ' + y + 'px)'
     });
 };
+
+$.fn.reset = function() {
+    var x = this.data('x'),
+        y = this.data('y');
+
+    this.anim({
+        '-webkit-transform' : 'translate(' + x + 'px, ' + y + 'px)'
+    }, ZOOM_TIME, 'ease-in', function() {
+    });
+}
 
 $.fn.showConversation = function(convs, interval) {
     var i = 0,
@@ -114,17 +158,30 @@ $('#tile-twitter').init({x:10, y:165, w:147, h:118, ex:10, ew: 303});
 $('#tile-facebook').init({x:165, y:165, w:147, h:118, ex:10, ew: 303});
 $('#tile-push-info').init({x:0, y:290, w:312, h:160, ex:0, ew: 313});
 
+allTiles = [
+    $('#tile-weather'),
+    $('#tile-email'),
+    $('#tile-twitter'),
+    $('#tile-facebook'),
+    $('#tile-push-info')
+];
+
 tileContent.delegate('.tile', tapEvent, function(e) {
     var target = $(this);
 
+    if (target.hasClass('minify')) {
+        return;
+    }
+
     if (currentEnlargedTile && (target.get(0) == currentEnlargedTile.get(0))) {
-        target.collpase();
+        collpaseTile(target);
         currentEnlargedTile = null;
     } else {
-        target.expand();
+        //target.expand();
+        expandTile(target);
 
         if (currentEnlargedTile) {
-            target.collpase();
+            collpaseTile(target);
         }
         currentEnlargedTile = target;
     }
@@ -185,6 +242,7 @@ $('#icon-photo').on(tapEvent, function(e) {
 });
 
 
+$('body').css('display', 'block');
 
 // end of ready callback
 });

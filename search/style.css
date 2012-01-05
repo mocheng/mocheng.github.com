@@ -317,10 +317,37 @@ height: 100px;
     background-size: cover;
 }
 
+
+.tile-weather.minify
+{
+    background: url(slices/weather_small.png) no-repeat;
+}
+
+.tile-email.minify
+{
+    background: url(slices/email_small.png) no-repeat;
+}
+
+.tile-twitter.minify
+{
+    background: url(slices/twitter_small.png) no-repeat;
+}
+
+.tile-facebook.minify
+{
+    background: url(slices/facebook_small.png) no-repeat;
+}
+
+.minify
+{
+    width: 71px !important;
+    height: 48px !important;
+    background-size: contain;
+}
+
+
 /* stand alone */
-/*
 .app-mode .search-pane
 {
     height: 460px;
 }
-*/
