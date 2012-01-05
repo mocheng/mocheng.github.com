@@ -2,26 +2,30 @@ $(function() {
 var win = window,
     doc = document,
     currentEnlargedTile,
-    ZOOM_TIME = 0.3,
+    ZOOM_TIME = 0.10,
 
-    EXPANDED_WIDTH = 300;
-    EXPANDED_HEIGHT = 300;
+    EXPANDED_WIDTH = 313;
+    EXPANDED_HEIGHT = 345;
     //COLLAPSED_WIDTH = 144;
     //COLLAPSED_HEIGHT = 90;
 
-    tileContent = $('.tile_content'),
+    tileContent = $('.tile-pane'),
     tapEvent = 'ontouchend' in doc ? 'tap' : 'click';
 
 //extend $ to have some methods
 $.fn.expand = function() {
-    var that = this;
+    var that = this,
+        ex = that.data('expanded-x'),
+        ey = that.data('expanded-y') || 90,
+        ew = parseInt(that.data('expanded-w'));
 
+    that.addClass('expanded');
     that.css({'z-index':100});
     that.anim({
-        '-webkit-transform' : 'translate(0, 0)',
-        'width' : EXPANDED_WIDTH,
+        'width' : ew,
+        '-webkit-transform' : 'translate(' + ex + 'px, ' + ey + 'px)',
         'height' :  EXPANDED_HEIGHT
-    }, ZOOM_TIME, 'ease-out', function() {
+    }, ZOOM_TIME, 'ease-in', function() {
     });
 };
 
@@ -35,17 +39,23 @@ $.fn.collpase = function() {
     that.anim({
         '-webkit-transform' : 'translate(' + x +'px, ' + y +'px)',
         'width' : w,
-        'height' : 90
+        'height' : h
     }, ZOOM_TIME, 'ease-out', function() {
         that.css({'z-index':0});
+
+        that.removeClass('expanded');
     });
 };
 
-$.fn.init = function(x, y, w, h) {
+$.fn.init = function(options) {
+    var x = options.x,
+        y = options.y;
     this.data('x', x);
     this.data('y', y);
-    this.data('width', w);
-    this.data('height', h);
+    this.data('width', options.w);
+    this.data('height', options.h);
+    this.data('expanded-x', options.ex);
+    this.data('expanded-w', options.ew);
 
     this.css({
         '-webkit-transform' : 'translate(' + x + 'px, ' + y + 'px)'
@@ -64,7 +74,7 @@ $.fn.showConversation = function(convs, interval) {
             convView.refresh();
             if (convView.maxScrollY < 0)
             {
-                convView.scrollToElement('li:last-child');
+                convView.scrollToElement('li:last-child', 1);
             }
 
             /*
@@ -86,8 +96,8 @@ var convView = new iScroll('conv-view', {
 });
 
 // change height
-if ( ('standalone' in window.navigator) && window.navigator.standalone) {
-    $('body').addClass('app-mode');
+if ( ('standalone' in window.navigator) && !window.navigator.standalone) {
+    $('body').removeClass('app-mode');
 }
 
 // disable page swiping
@@ -98,11 +108,11 @@ $(document).on('touchmove', function(e) {
 */
 
 // init tile layout
-$('#tile1').init(0, 0, 144, 90);
-$('#tile2').init(150, 0, 144, 90);
-$('#tile3').init(0, 100, 144, 90);
-$('#tile4').init(150, 100, 144, 90);
-$('#tile5').init(0, 200, 294, 90);
+$('#tile-weather').init({x:10, y:50, w:147, h:112, ex:10, ew: 303});
+$('#tile-email').init({x:165, y:44, w:147, h:118, ex:10, ew: 303});
+$('#tile-twitter').init({x:10, y:165, w:147, h:118, ex:10, ew: 303});
+$('#tile-facebook').init({x:165, y:165, w:147, h:118, ex:10, ew: 303});
+$('#tile-push-info').init({x:0, y:290, w:312, h:160, ex:0, ew: 313});
 
 tileContent.delegate('.tile', tapEvent, function(e) {
     var target = $(this);
@@ -142,14 +152,38 @@ $('#back_to_tile').on(tapEvent, function(e) {
     });
 });
 
+$('#icon-text').on(tapEvent, function(e) {
+    $('#conv-list').showConversation([
+        '<li><img src="slices/Chat_2_1.png" width="279" height="39"></li>',
+        '<li><img src="slices/Chat_2_2.png" width="279" height="58"></li>',
+        '<li><img src="slices/Chat_2_3.png" width="284" height="222"><br><img src="slices/Chat_2_4.png" width="266" height="38"></li>',
+
+        '<li><img src="slices/Chat_3_1.png" width="279" height="48"></li>',
+        '<li><img src="slices/Chat_3_2.png" width="169" height="297"></li>',
+        '<li><img src="slices/Chat_3_3.png" width="279" height="48"></li>',
+        '<li><img src="slices/Chat_3_4.png" width="279" height="58"></li>'
+    ], 450);
+
+});
+
 $('#icon-voice').on(tapEvent, function(e) {
     $('#conv-list').showConversation([
         '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
         '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
 
         '<li><img src="slices/Chat_1_3.png" width="284" height="222"><br><img src="slices/Chat_1_4.png" width="266" height="32"></li>'
+
     ], 650);
 });
+
+$('#icon-photo').on(tapEvent, function(e) {
+    $('#conv-list').showConversation([
+        '<li><img src="slices/Chat_4_2.png" width="279" height="116"></li>',
+        '<li><img src="slices/Chat_4_3.png" width="279" height="58"></li>',
+        '<li><img src="slices/Chat_4_4.png" width="284" height="222"></li>'
+    ], 650);
+});
+
 
 
 // end of ready callback

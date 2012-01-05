@@ -28,10 +28,25 @@
 <body onload="/mobile/i.test(navigator.userAgent) && !location.hash && setTimeout(function () { if (!pageYOffset) window.scrollTo(0, 1); }, 1000); ">
     -->
 
-<body class="foo">
+<body class="app-mode">
 <body>
+    <div id="search-pane" class="search-pane">
+        <span id="back_to_tile" class="icon search">Back</span>
+        <div id="conv-view" class="conv-view">
+            <div id="scroll-content" class="scroll-content">
+                <ul id="conv-list">
+                </ul>
+            </div>
+        </div>
+        <div id="bot-bar" class="bot-bar">
+            <span id="icon-text" class="icon icon-text"></span>
+            <span id="icon-voice" class="icon icon-voice"></span>
+            <span id="icon-photo" class="icon icon-photo"></span>
+        </div>
+    </div>
+    <div id="tile-pane" class="tile-pane">
+        <span id="search" class="icon search">Search</span>
         <div id="location" class="location">
-            <span id="search" class="icon search">Search</span>
             <span id="curr_loc" class="subject"></span>
             <div class="map">
                 TODO: This should be a map!<br/>
@@ -42,169 +57,27 @@
                 TODO: This should be a map!<br/>
             </div>
         </div>
-    </div>
-    <div id="search_content" class="search_content">
-        <span id="back_to_tile" class="icon search">Back</span>
-        <div id="conv-view" class="conv-view">
-            <div id="scroll-content" class="scroll-content">
-                <ul id="conv-list">
-                    <!--
-                    <li>Top</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
 
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-                    <li>Some Stuff</li>
-
-                    <li>Bottom</li>
-                    -->
-                </ul>
-            </div>
+        <div id="tile-weather" class="tile small-tile tile1 tile-weather">
+            <!--Weather-->
         </div>
-        <div id="bot-bar" class="bot-bar">
-            <span id="icon-text" class="icon icon-text"></span>
-            <span id="icon-voice" class="icon icon-voice"></span>
-            <span id="icon-photo" class="icon icon-photo"></span>
+        <div id="tile-email" class="tile small-tile tile2 tile-email">
+            <!--EMail-->
+        </div>
+        <div id="tile-twitter" class="tile small-tile tile4 tile-twitter">
+            <!--Twitter-->
+        </div>
+        <div id="tile-facebook" class="tile small-tile tile3 tile-facebook">
+            <!--Facebook-->
+        </div>
+        <div id="tile-push-info" class="tile big-tile tile5 tile-push-info">
+            <!--New Arrival-->
         </div>
     </div>
-    <div id="tile_content" class="tile_content">
-        <div id="tile1" class="tile small-tile tile1 tile-weather">
-            Weather
-        </div>
-        <div id="tile2" class="tile small-tile tile2 tile-email">
-            EMail
-        </div>
-        <div id="tile4" class="tile small-tile tile3 tile-facebook">
-            Facebook
-        </div>
-        <div id="tile3" class="tile small-tile tile4 tile-twitter">
-            Twitter
-        </div>
-        <div id="tile5" class="tile big-tile tile5 tile-push-info">
-            New Arrival
-        </div>
-    </div>
-    <!--
-    <div class="bottom_toolbar">
-        bottom toolbar
-    </div>
-    -->
 
 <script src="iscroll.js" type="text/javascript" charset="utf-8"></script>
 <script src="zepto.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="search.js" type="text/javascript" charset="utf-8"></script>
 
-<script type="text/_javascript" charset="utf-8">
-
-
-YUI().use('node', 'event-move', 'event-flick', function(Y) {
-
-    /*
-    Y.one('body').on('touchmove', function(e) {
-        e.preventDefault();
-    });
-    */
-
-    var ZOOM_TIME = 250,
-        tileContent = Y.one('.tile_content'),
-        locationContent = Y.one('#location'),
-        searchContent = Y.one('.search_content');
-        searchIcon = Y.one('#search'),
-        backIcon = Y.one('#search'),
-        currEnlarged = null;
-
-    Y.one('document').on('touchmove', function(e) {
-        e.preventDefault();
-    });
-
-    function expandLocation() {
-        locationContent.toggleClass('expanded');
-    };
-
-    locationContent.on('flick', function(e) {
-        e.halt();
-        expandLocation();
-    }, {
-        minDistance: 5,
-        axis: 'y'
-    }, this);
-
-    searchIcon.on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
-        Y.one('body').setStyles({
-            '-webkit-transform' : 'translate(320px, 0)'
-        });
-    }, this);
-
-    Y.one('#back_to_tile').on( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
-         Y.one('body').setStyles({
-            '-webkit-transform' : 'translate(0, 0)'
-        });
-    }, this);
-
-    tileContent.delegate( ('ontouchend' in document) ? 'touchend' : 'click', function(e) {
-        var currTarget = e.currentTarget;
-
-        if (currTarget == currEnlarged) {
-
-            //alert(currTarget);
-
-            currTarget.removeClass('enlarged');
-            /*
-            currTarget.on('webkitTransitionEnd', function(e) {
-                currTarget.removeClass('highlighted');
-            });
-            */
-            setTimeout(function() {
-                currTarget.removeClass('highlighted');
-            }, ZOOM_TIME);
-
-            currEnlarged = null;
-
-            tileContent.removeClass('focused');
-        } else {
-            if (!tileContent.hasClass('focused')) {
-                tileContent.addClass('focused');
-            }
-
-            if (currEnlarged) {
-                currEnlarged.removeClass('enlarged');
-                /*
-                currEnlarged.on('webkitTransitionEnd', function(e) {
-                    alert(currTarget);
-                    currEnlarged.removeClass('highlighted');
-                });
-                */
-                setTimeout(function() {
-                    currTarget.removeClass('highlighted');
-                }, ZOOM_TIME);
-            }
-
-            currTarget.addClass('enlarged');
-            currTarget.addClass('highlighted');
-            currEnlarged = currTarget;
-        }
-
-    }, '.tile', this);
-
-});
-</script>
 </body>
-
 </html>
