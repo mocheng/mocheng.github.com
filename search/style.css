@@ -70,7 +70,7 @@ body {
 
 .map .close
 {
-    background: url(slices/maps/CloseIcon.png) no-repeat;
+    background: url(slices/maps/Closeicon.png) no-repeat;
     background-size: contain;
 
     position: absolute;
