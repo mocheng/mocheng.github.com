@@ -360,6 +360,12 @@ height: 100px;
     background: url(slices/facebook_small.png) no-repeat;
 }
 
+.tile-push-info.minify
+{
+    background: url(slices/push.png) no-repeat;
+}
+
+
 .minify
 {
     width: 71px !important;
