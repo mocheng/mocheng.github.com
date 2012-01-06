@@ -251,9 +251,10 @@ $('#icon-text').on(tapEvent, function(e) {
         '<li><img src="slices/Chat_2_3.png" width="284" height="222"><br><img src="slices/Chat_2_4.png" width="266" height="38"></li>',
 
         '<li><img src="slices/Chat_3_1.png" width="279" height="48"></li>',
-        '<li><img src="slices/Chat_3_2.png" width="169" height="297"></li>',
+        //'<li><img src="slices/Chat_3_2.png" width="169" height="297"></li>',
         '<li><img src="slices/Chat_3_3.png" width="279" height="48"></li>',
-        '<li><img src="slices/Chat_3_4.png" width="279" height="58"></li>'
+        '<li><img src="slices/Chat_3_4.png" width="279" height="58"></li>',
+        '<li><img src="slices/Chat_3_5.png" width="279" height="222"></li>'
     ]);
 });
 
