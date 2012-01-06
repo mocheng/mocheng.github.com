@@ -29,7 +29,7 @@ body {
 }
 
 .location {
-    padding-left: 50px;
+    padding-left: 38px;
 }
 
 .location .icon,
@@ -44,27 +44,49 @@ body {
 
 .location .subject {
     background: url(slices/location.png) no-repeat;
-    background-size: 228px 39px;
-    width: 228px;
+    background-size: 278px 39px;
+    width: 278px;
     height: 39px;
 }
 
 
 .location .map {
+    background: url(slices/maps/map-background.png) no-repeat;
+    background-size: contain;
+    overflow: hidden;
+
     width: 320px;
-    height: 400px;
-    /*display: none;*/
+    height: 460px;
     font-size: 18px;
-    background: #FFF;
 
     position: absolute;
-    left: 0px;
-
-    -webkit-transform: translate(0, -400px);
+    left: 0;
+    -webkit-transform: translate(0, -460px);
 
     -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 0.5s;
+    -webkit-transition-duration: 0.35s;
     -webkit-transition-timing-function: ease-out;
+}
+
+.map .close
+{
+    background: url(slices/maps/CloseIcon.png) no-repeat;
+    background-size: contain;
+
+    position: absolute;
+    left: 10px;
+    bottom: 50px;
+    width: 45px;
+    height: 45px;
+}
+
+.map .promotion
+{
+    list-style:none;
+
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .location.expanded .subject {
@@ -350,4 +372,39 @@ height: 100px;
 .app-mode .search-pane
 {
     height: 460px;
+}
+
+/* map */
+.location .map.shown {
+
+    z-index: 1000;
+
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 0.35s;
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transform: translate3d(0,0,0);
+
+    -webkit-transform: translate(0, 0);
+}
+
+.map .shop
+{
+    display: block;
+}
+
+.map .curr_shop
+{
+    /*background: url(slices/maps/4-enlarge.png) no-repeat;*/
+    background-size: contain;
+    width: 305px;
+    height: 309px;
+    z-index: 1100;
+    position: absolute;
+    top: 50px;
+    left: 5px;
+}
+
+.map .hidden
+{
+    display: none;
 }

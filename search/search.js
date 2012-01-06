@@ -2,7 +2,11 @@ $(function() {
 var win = window,
     doc = document,
     currentEnlargedTile,
-    ZOOM_TIME = 0.15,
+
+    lockSearchIcon = false,
+
+    ZOOM_TIME = 0.15, // seconds
+    CONV_INTERVAL = 1500, // milliseconds
 
     EXPANDED_WIDTH = 313;
     EXPANDED_HEIGHT = 345;
@@ -119,32 +123,34 @@ $.fn.reset = function() {
     });
 }
 
-$.fn.showConversation = function(convs, interval) {
+$.fn.showConversation = function(convs, interval, endCallback) {
     var i = 0,
         that = this;
         len = convs.length;
 
     function showConv() {
+        that.html(that.html() + convs[i]);
+
+        convView.refresh();
+        if (convView.maxScrollY < 0)
+        {
+            convView.scrollToElement('li:last-child', 1);
+        }
+
+        /*
+        alert(that.attr('scrollHeight'));
+        that.attr('scrollTop', that.attr('scrollHeight'));
+        alert(that.attr('scrollTop'));
+        */
+        ++i;
+
         if (i < len) {
-            that.html(that.html() + convs[i]);
-
-            convView.refresh();
-            if (convView.maxScrollY < 0)
-            {
-                convView.scrollToElement('li:last-child', 1);
-            }
-
-            /*
-            alert(that.attr('scrollHeight'));
-            that.attr('scrollTop', that.attr('scrollHeight'));
-            alert(that.attr('scrollTop'));
-            */
-            ++i;
-
             setTimeout(showConv, interval);
+        } else {
+            endCallback();
         }
     };
-    setTimeout(showConv, interval);
+    setTimeout(showConv, 10);
 };
 
 // for iscroll
@@ -216,8 +222,30 @@ $('#back_to_tile').on(tapEvent, function(e) {
     switch2TilePane();
 });
 
+
+/// show conversation
+function onClickBotIcon(e, htmlArray) {
+    var target = $(e.target);
+
+    /*
+    if (target.hasClass('disabled')) {
+        return;
+    }
+    target.addClass('disabled');
+    */
+    if (lockSearchIcon) {
+        return;
+    }
+    lockSearchIcon = true;
+
+    $('#conv-list').showConversation(htmlArray, CONV_INTERVAL, function() {
+        //target.removeClass('disabled');
+        lockSearchIcon = false;
+    });
+}
+
 $('#icon-text').on(tapEvent, function(e) {
-    $('#conv-list').showConversation([
+    onClickBotIcon(e, [
         '<li><img src="slices/Chat_2_1.png" width="279" height="39"></li>',
         '<li><img src="slices/Chat_2_2.png" width="279" height="58"></li>',
         '<li><img src="slices/Chat_2_3.png" width="284" height="222"><br><img src="slices/Chat_2_4.png" width="266" height="38"></li>',
@@ -226,29 +254,51 @@ $('#icon-text').on(tapEvent, function(e) {
         '<li><img src="slices/Chat_3_2.png" width="169" height="297"></li>',
         '<li><img src="slices/Chat_3_3.png" width="279" height="48"></li>',
         '<li><img src="slices/Chat_3_4.png" width="279" height="58"></li>'
-    ], 1200);
-
+    ]);
 });
 
 $('#icon-voice').on(tapEvent, function(e) {
-    $('#conv-list').showConversation([
+    onClickBotIcon(e, [
         '<li><img src="slices/Chat_1_1.png" width="279" height="39"></li>',
         '<li><img src="slices/Chat_1_2.png" width="279" height="58"></li>',
 
         '<li><img src="slices/Chat_1_3.png" width="284" height="222"><br><img src="slices/Chat_1_4.png" width="266" height="32"></li>'
 
-    ], 1200);
+    ]);
 });
 
 $('#icon-photo').on(tapEvent, function(e) {
-    $('#conv-list').showConversation([
+    onClickBotIcon(e, [
         '<li><img src="slices/Chat_4_2.png" width="279" height="116"></li>',
         '<li><img src="slices/Chat_4_3.png" width="279" height="58"></li>',
         '<li><img src="slices/Chat_4_4.png" width="284" height="222"></li>'
-    ], 1200);
+    ]);
 });
 
+// map
+function showMap() {
+    var map = $('#map');
+    map.addClass('shown');
+}
 
+function hideMap() {
+    var map = $('#map');
+    map.removeClass('shown');
+}
+
+$('#curr_loc').on(tapEvent, showMap);
+$('#map .close').on(tapEvent, hideMap);
+$('#map').swipeUp(hideMap);
+
+$('#map .promotion').delegate('.shop', tapEvent, function(e) {
+    $('#map .curr_shop').removeClass('hidden');
+});
+
+$('#map .curr_shop').on(tapEvent, function(e) {
+    $(this).addClass('hidden');
+});
+
+// after everything is set. show the content
 $('body').css('display', 'block');
 
 // end of ready callback
