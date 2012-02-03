@@ -1,3 +1,5 @@
 <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
 Header set Expires "Sat, 05 Sep 2026 00:00:00 GMT"
 </filesMatch>
+
+AddType text/cache-manifest .appcache
